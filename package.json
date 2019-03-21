@@ -1,0 +1,34 @@
+{
+  "name": "lv_font_converter",
+  "version": "0.1.0",
+  "description": "Build fonts for LittlevGL.",
+  "keywords": [
+    "lvgl",
+    "littlevgl"
+  ],
+  "repository": "littlevgl/lv_font_converter",
+  "license": "MIT",
+  "files": [
+    "lv_font_converter.js",
+    "lib/"
+  ],
+  "bin": {
+    "lv_font_converter": "lv_font_converter.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint && nyc mocha",
+    "coverage": "npm run test && nyc report --reporter html"
+  },
+  "dependencies": {
+    "argparse": "^1.0.10",
+    "debug": "^4.1.1",
+    "es6-error": "^4.1.1",
+    "glob": "^7.1.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
+  }
+}
