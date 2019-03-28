@@ -92,7 +92,7 @@ describe('Collect font data', function () {
 
     assert.equal(out.length, 3);
     assert.equal(out[0].code, 0x3d1);
-    assert.equal(out[0].code, 0x3d2);
-    assert.equal(out[0].code, 0x3d6);
+    assert.equal(out[1].code, 0x3d2);
+    assert.equal(out[2].code, 0x3d6);
   });
 });
