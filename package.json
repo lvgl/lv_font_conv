@@ -1,19 +1,19 @@
 {
-  "name": "lv_font_converter",
+  "name": "lv_font_conv",
   "version": "0.1.0",
-  "description": "Build fonts for LittlevGL.",
+  "description": "Rasterize vector fonts for embedded use. Supports subsettings & merge.",
   "keywords": [
     "lvgl",
     "littlevgl"
   ],
-  "repository": "littlevgl/lv_font_converter",
+  "repository": "littlevgl/lv_font_conv",
   "license": "MIT",
   "files": [
-    "lv_font_converter.js",
+    "lv_font_conv.js",
     "lib/"
   ],
   "bin": {
-    "lv_font_converter": "lv_font_converter.js"
+    "lv_font_conv": "lv_font_conv.js"
   },
   "scripts": {
     "lint": "eslint .",
