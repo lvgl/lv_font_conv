@@ -35,6 +35,13 @@ describe('Script', function () {
   });
 
 
+  it('Should require character set specified for each font', function () {
+    assert.throws(() => {
+      run('--font test -s 18 -b 4'.split(' '), true);
+    }, /You need to specify either /);
+  });
+
+
   it('Should print error if size is invalid', function () {
     assert.throws(() => {
       run('-s 10xxx'.split(' '), true);

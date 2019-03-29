@@ -121,4 +121,17 @@ describe('Collect font data', function () {
       });
     }, /doesn't have any characters/);
   });
+
+
+  it('Should error when font format is unknown', function () {
+    assert.throws(() => {
+      collect_font_data({
+        font: [ {
+          source: __filename,
+          ranges: [ { range: [ 0x20, 0x20, 0x20 ] } ]
+        } ],
+        size: 18
+      });
+    }, /Cannot load font.*Unknown font format/);
+  });
 });
