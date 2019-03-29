@@ -95,4 +95,30 @@ describe('Collect font data', function () {
     assert.equal(out[1].code, 0x3d2);
     assert.equal(out[2].code, 0x3d6);
   });
+
+
+  it('Should error on empty ranges', function () {
+    assert.throws(() => {
+      collect_font_data({
+        font: [ {
+          source: font,
+          ranges: [ { range: [ 0x3d3, 0x3d5, 0x3d3 ] } ]
+        } ],
+        size: 18
+      });
+    }, /doesn't have any characters/);
+  });
+
+
+  it('Should error on empty symbol sets', function () {
+    assert.throws(() => {
+      collect_font_data({
+        font: [ {
+          source: font,
+          ranges: [ { symbols: '\u03d3\u03d4\u03d5' } ]
+        } ],
+        size: 18
+      });
+    }, /doesn't have any characters/);
+  });
 });
