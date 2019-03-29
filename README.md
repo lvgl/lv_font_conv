@@ -20,29 +20,41 @@ TBD
 Global install of the last version, execute as "lv_font_conv"
 
 ```sh
+# install release from npm registry
 npm i lv_font_conv -g
-```
-
-**Alternatives:**
-
-Install from github's repo, master branch
-
-```sh
+# install from github's repo, master branch
 npm i littlevgl/lv_font_conv -g
 ```
 
-If you wish local install for your project, do in project root:
+**run via [npx](https://www.npmjs.com/package/npx) without install**
 
 ```sh
-npm init private
-npm i lv_font_conv -s
-# now available at ./node_modules/.bin/lv_font_conv
+# run from npm registry
+npx lv_font_conv -h
+# run from github master
+npx github:littlevgl/lv_font_conv -h
 ```
-
-Then commit `package.json` & put `/node_modules` into `.gitignore`. Next time
-use just `npm i` to install.
 
 
 ## CLI params
 
-TBD
+Common:
+
+- `-b`, `--bpp` - bits per pixel (antialiasing)
+- `-s`, `--size` - font size (pixels)
+- `-o`, `--output` - output path (file or directory, depends on format)
+- `--format` - output format
+  - `--format dump` - dump glyph images and font info, useful for debug.
+
+
+Per font:
+
+- `--font` - path to font file (ttf/woff/woff2). May be used multiple time for
+  merge.
+- `-r`, `--range` - single glyph or range + optional mapping, belongs to
+  previously declared `--font`. Examples:
+  - `-r 0x1F450` - single value, dec or hex format.
+  - `-r 0x1F450-0x1F470` - range.
+  - `-r 0x1F450=>0xF005` - single glyph with mapping.
+  - `-r 0x1F450-0x1F470=>0xF005` - range with mapping.
+- `--symbols` - list of characters to copy (instead of numeric format in `-r`).
