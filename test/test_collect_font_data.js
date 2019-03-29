@@ -25,15 +25,9 @@ describe('Collect font data', function () {
       size: 18
     }, createCanvas);
 
-    assert.equal(out.length, 2);
-
-    assert.equal(out[0].code, 0x80);
-    assert.equal(out[0].pixels.length, 18); // height
-    assert.equal(out[0].pixels[0].length, 10); // width
-
-    assert.equal(out[1].code, 0x81);
-    assert.equal(out[1].pixels.length, 18); // height
-    assert.equal(out[1].pixels[0].length, 10); // width
+    assert.equal(out.glyphs.length, 2);
+    assert.equal(out.glyphs[0].code, 0x80);
+    assert.equal(out.glyphs[1].code, 0x81);
   });
 
 
@@ -46,15 +40,9 @@ describe('Collect font data', function () {
       size: 18
     }, createCanvas);
 
-    assert.equal(out.length, 2);
-
-    assert.equal(out[0].code, 0x41);
-    assert.equal(out[0].pixels.length, 18); // height
-    assert.equal(out[0].pixels[0].length, 10); // width
-
-    assert.equal(out[1].code, 0x42);
-    assert.equal(out[1].pixels.length, 18); // height
-    assert.equal(out[1].pixels[0].length, 10); // width
+    assert.equal(out.glyphs.length, 2);
+    assert.equal(out.glyphs[0].code, 0x41);
+    assert.equal(out.glyphs[1].code, 0x42);
   });
 
 
@@ -67,8 +55,9 @@ describe('Collect font data', function () {
       size: 18
     }, createCanvas);
 
-    // ignore those characters for now
-    assert.equal(out.length, 0);
+    assert.equal(out.glyphs.length, 1);
+    assert.equal(out.glyphs[0].code, 0x300);
+    assert.strictEqual(out.glyphs[0].advanceWidth, 0);
   });
 
 
@@ -84,7 +73,7 @@ describe('Collect font data', function () {
       size: 18
     }, createCanvas);
 
-    assert.equal(out.length, 2);
+    assert.equal(out.glyphs.length, 2);
   });
 
 
@@ -97,10 +86,10 @@ describe('Collect font data', function () {
       size: 10
     }, createCanvas);
 
-    assert.equal(out.length, 3);
-    assert.equal(out[0].code, 0x3d1);
-    assert.equal(out[1].code, 0x3d2);
-    assert.equal(out[2].code, 0x3d6);
+    assert.equal(out.glyphs.length, 3);
+    assert.equal(out.glyphs[0].code, 0x3d1);
+    assert.equal(out.glyphs[1].code, 0x3d2);
+    assert.equal(out.glyphs[2].code, 0x3d6);
   });
 
 

@@ -6,7 +6,8 @@ const { execFileSync }  = require('child_process');
 const fs                = require('fs');
 const path              = require('path');
 const rimraf            = require('rimraf');
-const { run }           = require('../lib/cli');
+const run               = require('../lib/cli').run;
+const range             = require('../lib/cli')._range;
 
 
 const script_path = path.join(__dirname, '../lv_font_conv.js');
@@ -74,5 +75,48 @@ describe('Script', function () {
     assert.throws(() => {
       run([ '--font', font, '--range', '0x20-0x22', '--size', '18', '--bpp', '2' ], true);
     }, /Output is required for/);
+  });
+
+  describe('range', function () {
+    it('Should accept single number', function () {
+      assert.deepEqual(range('42'), [ 42, 42, 42 ]);
+    });
+
+    it('Should accept single number (hex)', function () {
+      assert.deepEqual(range('0x2A'), [ 42, 42, 42 ]);
+    });
+
+    it('Should accept simple range', function () {
+      assert.deepEqual(range('40-0x2A'), [ 40, 42, 40 ]);
+    });
+
+    it('Should accept single number with mapping', function () {
+      assert.deepEqual(range('42=>72'), [ 42, 42, 72 ]);
+    });
+
+    it('Should accept range with mapping', function () {
+      assert.deepEqual(range('42-45=>0x48'), [ 42, 45, 72 ]);
+    });
+
+    it('Should error on invalid ranges', function () {
+      assert.throws(
+        () => range('20-19'),
+        /Invalid range/
+      );
+    });
+
+    it('Should error on invalid numbers', function () {
+      assert.throws(
+        () => range('13-abc80'),
+        /not a number/
+      );
+    });
+
+    it('Should not accept characters out of unicode range', function () {
+      assert.throws(
+        () => range('1114444'),
+        /out of unicode/
+      );
+    });
   });
 });
