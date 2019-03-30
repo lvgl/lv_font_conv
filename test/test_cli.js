@@ -37,21 +37,21 @@ describe('Script', function () {
 
   it('Should require character set specified for each font', function () {
     assert.throws(() => {
-      run('--font test -s 18 -b 4'.split(' '), true);
+      run('--font test --size 18 --bpp 4'.split(' '), true);
     }, /You need to specify either /);
   });
 
 
   it('Should print error if size is invalid', function () {
     assert.throws(() => {
-      run('-s 10xxx'.split(' '), true);
+      run('--size 10xxx'.split(' '), true);
     }, /Invalid int value/);
   });
 
 
   it('Should print error if size is zero', function () {
     assert.throws(() => {
-      run('-s 0'.split(' '), true);
+      run('--size 0'.split(' '), true);
     }, /Invalid int value/);
   });
 
@@ -61,7 +61,7 @@ describe('Script', function () {
     let dir = path.join(__dirname, rnd);
 
     try {
-      run([ '--font', font, '--range', '0x20-0x22', '-s', '18', '-o', dir, '-b', '2' ], true);
+      run([ '--font', font, '--range', '0x20-0x22', '--size', '18', '-o', dir, '--bpp', '2' ], true);
 
       assert.deepEqual(fs.readdirSync(dir), [ '20.png', '21.png', '22.png' ]);
     } finally {
@@ -72,7 +72,7 @@ describe('Script', function () {
 
   it('Should require output for "dump" writer', function () {
     assert.throws(() => {
-      run([ '--font', font, '--range', '0x20-0x22', '-s', '18', '-b', '2' ], true);
+      run([ '--font', font, '--range', '0x20-0x22', '--size', '18', '--bpp', '2' ], true);
     }, /Output is required for/);
   });
 });

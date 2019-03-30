@@ -40,10 +40,10 @@ npx github:littlevgl/lv_font_conv -h
 
 Common:
 
-- `-b`, `--bpp` - bits per pixel (antialiasing)
-- `-s`, `--size` - font size (pixels)
-- `-o`, `--output` - output path (file or directory, depends on format)
-- `--format` - output format
+- `--bpp` - bits per pixel (antialiasing).
+- `--size` - output font size (pixels).
+- `-o`, `--output` - output path (file or directory, depends on format).
+- `--format` - output format.
   - `--format dump` - dump glyph images and font info, useful for debug.
 
 
@@ -58,3 +58,4 @@ Per font:
   - `-r 0x1F450=>0xF005` - single glyph with mapping.
   - `-r 0x1F450-0x1F470=>0xF005` - range with mapping.
 - `--symbols` - list of characters to copy (instead of numeric format in `-r`).
+  - `--symbols 0123456789.,` - extract chars to display numbers
