@@ -162,6 +162,6 @@ describe('Collect font data', function () {
         } ],
         size: 18
       }, createCanvas);
-    }, /Cannot load font.*Unknown font format/);
+    }, /Cannot load font.*(Unknown|Unsupported)/);
   });
 });
