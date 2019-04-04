@@ -64,7 +64,7 @@ describe('Script', function () {
     try {
       run([ '--font', font, '--range', '0x20-0x22', '--size', '18', '-o', dir, '--bpp', '2' ], true);
 
-      assert.deepEqual(fs.readdirSync(dir), [ '20.png', '21.png', '22.png' ]);
+      assert.deepEqual(fs.readdirSync(dir), [ '20.png', '21.png', '22.png', 'font_info.json' ]);
     } finally {
       rimraf.sync(dir);
     }
