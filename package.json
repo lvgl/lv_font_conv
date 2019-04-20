@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "argparse": "^1.0.10",
+    "bit-buffer": "^0.2.4",
     "canvas": "^2.4.1",
     "debug": "^4.1.1",
     "glob": "^7.1.3",
