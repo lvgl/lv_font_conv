@@ -9,7 +9,7 @@ function range(from, to) {
 }
 
 
-describe('font/cmap_build_subtables', function () {
+describe('Cmap build subtables', function () {
 
   it('Should represent a single character as format0', function () {
     assert.deepEqual(cmap_split([ 42 ]), [ [ 'format0', [ 42 ] ] ]);

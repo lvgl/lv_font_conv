@@ -14,7 +14,7 @@ const script_path = path.join(__dirname, '../lv_font_conv.js');
 const font = require.resolve('roboto-fontface/fonts/roboto/Roboto-Black.woff');
 
 
-describe('Script', function () {
+describe('Cli', function () {
 
   it('Should run', function () {
     let out = execFileSync(script_path, [], { stdio: 'pipe' });
@@ -57,17 +57,38 @@ describe('Script', function () {
   });
 
 
-  it('Should process a font', function () {
+  it('Should write a font using "dump" writer', function () {
     let rnd = Math.random().toString(16).slice(2, 10);
     let dir = path.join(__dirname, rnd);
 
     try {
-      /*eslint-disable max-len*/
-      run([ '--font', font, '--range', '0x20-0x22', '--size', '18', '-o', dir, '--bpp', '2', '--format', 'dump' ], true);
+      run([
+        '--font', font, '--range', '0x20-0x22', '--size', '18',
+        '-o', dir, '--bpp', '2', '--format', 'dump'
+      ], true);
 
       assert.deepEqual(fs.readdirSync(dir), [ '20.png', '21.png', '22.png', 'font_info.json' ]);
     } finally {
       rimraf.sync(dir);
+    }
+  });
+
+
+  it('Should write a font using "bin" writer', function () {
+    let rnd = Math.random().toString(16).slice(2, 10) + '.font';
+    let file = path.join(__dirname, rnd);
+
+    try {
+      run([
+        '--font', font, '--range', '0x20-0x22', '--size', '18',
+        '-o', file, '--bpp', '2', '--format', 'bin'
+      ], true);
+
+      let contents = fs.readFileSync(file);
+
+      assert.equal(contents.slice(4, 8), 'head');
+    } finally {
+      fs.unlinkSync(file);
     }
   });
 
