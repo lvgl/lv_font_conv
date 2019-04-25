@@ -2,7 +2,7 @@
 
 
 const assert = require('assert');
-const compress = require('../lib/font/compress');
+const compress = require('../../lib/font/compress');
 const { BitStream } = require('bit-buffer');
 
 
