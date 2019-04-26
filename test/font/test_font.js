@@ -3,6 +3,7 @@
 
 const assert = require('assert');
 const Font   = require('../../lib/font/font');
+const { BitStream } = require('bit-buffer');
 
 /*eslint-disable max-len*/
 
@@ -86,6 +87,24 @@ describe('Font', function () {
     assert.equal(bin.readUInt16LE(0), bin.length);
     assert.equal(bin.length % 4, 0);
     assert.equal(bin.readUInt32LE(4), Buffer.from('glyf').readUInt32LE(0));
+
+    // Test 'V' glyph properties (ID = 2)
+
+    // Extract data
+    const bits = Buffer.alloc(bin.length - font.glyf.getOffset(2));
+    bin.copy(bits, 0, font.glyf.getOffset(2));
+    // Create bits loader
+    const bs = new BitStream(bits);
+    bs.bigEndian = true;
+
+    assert.equal(
+      bs.readBits(font.advanceWidthBits, false),
+      Math.round(font_data_AV.glyphs[1].advanceWidth * 16)
+    );
+    assert.equal(bs.readBits(font.xy_bits, true), font_data_AV.glyphs[1].bbox.x);
+    assert.equal(bs.readBits(font.xy_bits, true), font_data_AV.glyphs[1].bbox.y);
+    assert.equal(bs.readBits(font.wh_bits, false), font_data_AV.glyphs[1].bbox.width);
+    assert.equal(bs.readBits(font.wh_bits, false), font_data_AV.glyphs[1].bbox.height);
   });
 
 
