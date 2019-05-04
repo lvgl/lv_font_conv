@@ -46,7 +46,7 @@ describe('Font', function () {
     assert.equal(bin.readUInt16LE(30), 0);
 
     assert.equal(bin.readUInt8(32), 0); // indexToLocFormat
-    assert.equal(bin.readUInt8(33), 0); // glyphIdFofmat
+    assert.equal(bin.readUInt8(33), 0); // glyphIdFormat
     assert.equal(bin.readUInt8(34), 0); // kerningFormat
     assert.equal(bin.readUInt8(35), 1); // advanceWidthFormat (with fractional)
 
