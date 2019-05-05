@@ -8,14 +8,10 @@ lv_font_conv - font convertor for LittlevGL
 
 Converts TTF fonts to internal LittlevGL format. Supports subsetting & merge.
 
-## Usage example
-
-TBD
-
 
 ## Install the script
 
-[node.js](https://nodejs.org/en/download/) required.
+[node.js](https://nodejs.org/en/download/) v10+ required.
 
 Global install of the last version, execute as "lv_font_conv"
 
@@ -35,6 +31,7 @@ npx lv_font_conv -h
 npx github:littlevgl/lv_font_conv -h
 ```
 
+Note, runing via `npx` may take some time until modules installed, be patient.
 
 ## CLI params
 
@@ -45,7 +42,6 @@ Common:
 - `-o`, `--output` - output path (file or directory, depends on format).
 - `--format` - output format.
   - `--format dump` - dump glyph images and font info, useful for debug.
-
 
 Per font:
 
@@ -59,3 +55,23 @@ Per font:
   - `-r 0x1F450-0x1F470=>0xF005` - range with mapping.
 - `--symbols` - list of characters to copy (instead of numeric format in `-r`).
   - `--symbols 0123456789.,` - extract chars to display numbers
+
+Additional debug options:
+
+- `--no-compress` - disable built-in RLE compression.
+- `--no-prefilter` - disable bitmap lines filter (XOR), used to improve
+  compression ratio.
+- `--no-kerning` - drop kerning info to reduce size (not recommended).
+- `--full-info` - don't shorten 'font_info.json' (include pixels data).
+
+
+## Examples
+
+Merge english from Roboto Regular and icons from Font Awesome, and show debug
+info:
+
+`lv_font_conv --font Roboto-Regolar.ttf -r 0x20-0x7F --font FontAwesome.ttf -r 0xFE00=>0x81 --size 16 --format bin --bpp 3 -o output.font`
+
+Dump all Roboto glyphs to inspect icons and font details:
+
+`lv_font_conv --font Roboto-Regolar.ttf -r 0x20-0x7F --size 16 --format dump --bpp 3 -o ./dump`
