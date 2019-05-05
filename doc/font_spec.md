@@ -208,30 +208,46 @@ NN | BBox Height (see length in font header)
 
 ## Table 'kern'
 
-[Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/kern)
+Initial References: [1](https://docs.microsoft.com/en-us/typography/opentype/spec/kern),
+[2](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6kern.html)
 
-Kerning info (optional). Consists of 2 parts, to simplify aligned access:
+Kerning info is optional. Only a very small subset of `kern`/`GPOS` features is
+supported:
 
-1. Array of pairs `[ id_left, id_right ]`. Pairs are sorted and can be assessed
-   as single number for fast binary search.
-2. Array of kerning values for each pair.
+- Horisontal kerning only.
+- 2 subtables formats, for compact store (sorted pairs and table of glyph classes).
+- No feature stacking (combination of subtables). `kern` table contain just data
+  in one of supported formats.
 
-Record elements:
+Stored kerning values are - always FP4.4 fixed point with sign. It should be
+multiplied to FP12.4 `kerningScale` from font header. Note, 7 bits resolution is
+enough for our simple needs. But kerning of fonts > 40px can exceed max value
+of signed FP4.4. So `kerningScale` allows properly scale covered range.
 
-- id - 1 or 2 bytes (glyph id from `cmap` table)/
-- kerning value - always FP4.4 fixed point value with sign, should be multiplied
-  to FP12.4 `kerningScale` from font headers
-
-Note, 7 bits resolution is enough for our simple needs. But kerning of
-fonts > 40px can exceed max value of signed FP4.4. So we have `kerningScale`
-in font header to properly scale covered range.
+Data layout:
 
 Size (bytes) | Description
 -------------|------------
 4 | Record size (for quick skip)
 4 | 'kern' (table marker)
-4 | Entries count
-2 or 4 | Kerning pair 1
+1 | Format type (0 & 3 now supported)
+3 | - (align)
+?? | format content
+
+### Format 0 (Sorted pairs)
+
+Just a sorted list of `(id_left, id_right, value)`, where id's are combined into
+`uint32_t`, and binary searchable. This format may provide some saving for
+`ascii` set (english), but become very ineffective for multiple languages.
+
+Unlike original, id pairs and values are stored separate to simplify align.
+
+Content:
+
+Size (bytes) | Description
+-------------|------------
+4 | Entries (pairs) count
+2 or 4 | Kerning pair 1 (glyph id left, glyph id right)
 2 or 4 | Kerning pair 2
 ...|...
 2 or 4 | Kerning pair last
@@ -239,6 +255,37 @@ Size (bytes) | Description
 1 | Value 2
 ... | ...
 1 | Value last
+
+Kerning pair size depends on `glyphIdFormat` from header.
+
+### Format 3 (Array M*N of classes)
+
+See Apple's [truetype reference](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6kern.html).
+
+Data format is very similar to one, suggested by apple. The only difference is,
+that we store kerning values directly, without index, because our values are
+always 1 byte.
+
+Content:
+
+Size (bytes) | Description
+-------------|------------
+2 | The number of glyphs in this font (class mapping length). `M`.
+1 | The number of left-hand classes (table rows wigth). `W`.
+1 | The number of right-hand classes (table column height). `H`.
+M | left-hand classes mapping, index = glyph_id, value => class id.
+M | right-hand classes mapping.
+W*H| kerning values.
+
+Note about class mappings. Class id `0` is reserved and means "kerning not
+exists" for this glyph.
+
+As been said in original spec, this format is restricted by 256 classes. But
+that's enough for very complex cases. For full `Roboto Regular` font dump,
+size of auto-restored table is ~80*100 (under auto-restore we mean reverse-build
+process, because initially kerning data is extracted for "pairs" without regard
+to structures behind). For this reason `Format 2` support was not added to this
+spec.
 
 
 ## Compression
