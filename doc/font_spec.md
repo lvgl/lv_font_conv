@@ -40,9 +40,9 @@ Size (bytes) | Description
 2 | min Y (used to quick check line intersections with other objects)
 2 | max Y
 2 | default advanceWidth (if glyph advanceWidth bits length = 0)
+1 | kerningScale, FP12.4 unsigned, scale for kerning data, to fit source in 1 byte
 1 | indexToLocFormat in `loca` table (`0` - Offset16, `1` - Offset32)
 1 | glyphIdFormat (`0` - 1 byte, `1` - 2 bytes)
-1 | kernFormat (`0` - 1 byte FP4.4, `1` - 2 bytes FP12.4)
 1 | advanceWidthFormat (`0` - Uint, `1` - unsigned with 4 bits fractional part)
 1 | Bits per pixel (1, 2, 3 or 4)
 1 | Glyph BBox x/y bits length (signed value)
@@ -218,10 +218,13 @@ Kerning info (optional). Consists of 2 parts, to simplify aligned access:
 
 Record elements:
 
-- id - 1 or 2 bytes (glyph id from `cmap` table)
-- kerning value - FP12.4 or FP4.4 fixed point value (1 or 2 bytes)
+- id - 1 or 2 bytes (glyph id from `cmap` table)/
+- kerning value - always FP4.4 fixed point value with sign, should be multiplied
+  to FP12.4 `kerningScale` from font headers
 
-Size of glyph id & kerning value defined in `head` table.
+Note, 7 bits resolution is enough for our simple needs. But kerning of
+fonts > 40px can exceed max value of signed FP4.4. So we have `kerningScale`
+in font header to properly scale covered range.
 
 Size (bytes) | Description
 -------------|------------
@@ -232,10 +235,10 @@ Size (bytes) | Description
 2 or 4 | Kerning pair 2
 ...|...
 2 or 4 | Kerning pair last
-1 or 2 | Value 1
-1 or 2 | Value 2
+1 | Value 1
+1 | Value 2
 ... | ...
-1 or 2 | Value last
+1 | Value last
 
 
 ## Compression
