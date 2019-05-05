@@ -45,18 +45,21 @@ describe('Font', function () {
     // Default advanceWidth 0 for proportional fonts
     assert.equal(bin.readUInt16LE(30), 0);
 
-    assert.equal(bin.readUInt8(32), 0); // indexToLocFormat
-    assert.equal(bin.readUInt8(33), 0); // glyphIdFormat
-    assert.equal(bin.readUInt8(34), 0); // kerningFormat
-    assert.equal(bin.readUInt8(35), 1); // advanceWidthFormat (with fractional)
+    assert.equal(bin.readUInt16LE(32), Math.round(font.kerningScale * 16));
 
-    assert.equal(bin.readUInt8(36), font_options.bpp);
+    assert.equal(bin.readUInt8(34), 0); // indexToLocFormat
+    assert.equal(bin.readUInt8(35), 0); // glyphIdFormat
 
-    assert.equal(bin.readUInt8(37), 1); // xy_bits
-    assert.equal(bin.readUInt8(38), 4); // wh_bits
-    assert.equal(bin.readUInt8(39), 8); // advanceWidth bits (FP4.4)
 
-    assert.equal(bin.readUInt8(40), 1); // compression id
+    assert.equal(bin.readUInt8(36), 1); // advanceWidthFormat (with fractional)
+
+    assert.equal(bin.readUInt8(37), font_options.bpp);
+
+    assert.equal(bin.readUInt8(38), 1); // xy_bits
+    assert.equal(bin.readUInt8(39), 4); // wh_bits
+    assert.equal(bin.readUInt8(40), 8); // advanceWidth bits (FP4.4)
+
+    assert.equal(bin.readUInt8(41), 1); // compression id
   });
 
 
