@@ -70,8 +70,8 @@ Additional debug options:
 Merge english from Roboto Regular and icons from Font Awesome, and show debug
 info:
 
-`lv_font_conv --font Roboto-Regolar.ttf -r 0x20-0x7F --font FontAwesome.ttf -r 0xFE00=>0x81 --size 16 --format bin --bpp 3 -o output.font`
+`env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --font FontAwesome.ttf -r 0xFE00=>0x81 --size 16 --format bin --bpp 3 -o output.font`
 
 Dump all Roboto glyphs to inspect icons and font details:
 
-`lv_font_conv --font Roboto-Regolar.ttf -r 0x20-0x7F --size 16 --format dump --bpp 3 -o ./dump`
+`lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --size 16 --format dump --bpp 3 -o ./dump`
