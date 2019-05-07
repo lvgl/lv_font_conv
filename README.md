@@ -48,11 +48,13 @@ Per font:
 - `--font` - path to font file (ttf/woff/woff2). May be used multiple time for
   merge.
 - `-r`, `--range` - single glyph or range + optional mapping, belongs to
-  previously declared `--font`. Examples:
+  previously declared `--font`. Can be used multiple times. Examples:
   - `-r 0x1F450` - single value, dec or hex format.
   - `-r 0x1F450-0x1F470` - range.
   - `-r 0x1F450=>0xF005` - single glyph with mapping.
   - `-r 0x1F450-0x1F470=>0xF005` - range with mapping.
+  - `-r 0x1F450 -r 0x1F451-0x1F470` - 2 ranges.
+  - `-r 0x1F450,0x1F451-0x1F470` - the same as above, but defined with single `-r`.
 - `--symbols` - list of characters to copy (instead of numeric format in `-r`).
   - `--symbols 0123456789.,` - extract chars to display numbers
 
@@ -71,6 +73,10 @@ Merge english from Roboto Regular and icons from Font Awesome, and show debug
 info:
 
 `env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --font FontAwesome.ttf -r 0xFE00=>0x81 --size 16 --format bin --bpp 3 -o output.font`
+
+Merge english & russian from Roboto Regular, and show debug info:
+
+`env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F -r 0x401,0x410-0x44F,0x451 --size 16 --format bin --bpp 3 -o output.font`
 
 Dump all Roboto glyphs to inspect icons and font details:
 
