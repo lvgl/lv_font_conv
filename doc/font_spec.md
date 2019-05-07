@@ -275,10 +275,12 @@ Size (bytes) | Description
 1 | The number of right-hand classes (table column height). `H`.
 M | left-hand classes mapping, index = glyph_id, value => class id.
 M | right-hand classes mapping.
-W*H| kerning values.
+W*H| kerning values array.
 
 Note about class mappings. Class id `0` is reserved and means "kerning not
-exists" for this glyph.
+exists" for this glyph. It's NOT stored in kerning array.
+
+Rsulting data is: `kerningArray[(leftClass-1)*rightClassesCount + (rightClass-1)]`
 
 As been said in original spec, this format is restricted by 256 classes. But
 that's enough for very complex cases. For full `Roboto Regular` font dump,
