@@ -147,12 +147,13 @@ describe('Font', function () {
     assert.equal(bin.readUInt16LE(0), bin.length);
     assert.equal(bin.length % 4, 0);
     assert.equal(bin.readUInt32LE(4), Buffer.from('kern').readUInt32LE(0));
+    assert.equal(bin.readUInt8(8), 0); // format
 
     // Entries
-    assert.equal(bin.readUInt32LE(8), 2);
+    assert.equal(bin.readUInt32LE(12), 2);
 
-    const PAIRS_OFFSET = 12;
-    const VAL_OFFSET = PAIRS_OFFSET + bin.readUInt32LE(8) * 2;
+    const PAIRS_OFFSET = 16;
+    const VAL_OFFSET = PAIRS_OFFSET + bin.readUInt32LE(12) * 2;
 
     // Pairs of IDs
 
