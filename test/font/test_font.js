@@ -10,6 +10,8 @@ const { BitStream } = require('bit-buffer');
 // Regenerate:
 // ./lv_font_conv.js --font ./node_modules/roboto-fontface/fonts/roboto/Roboto-Regular.woff -r 65-65 -r 86-86 --bpp 1 --size 10 --format dump -o 1111 --full-info
 const font_data_AV = require('./fixtures/font_info_AV.json');
+// ./lv_font_conv.js --font ./node_modules/roboto-fontface/fonts/roboto/Roboto-Regular.woff -r 65-65 -r 86-86 --bpp 1 --size 200 --format dump -o 1111 --full-info
+const font_data_AV_size200 = require('./fixtures/font_info_AV_size200.json');
 const font_options = { bpp: 2 };
 
 /*eslint-enable max-len*/
@@ -140,34 +142,104 @@ describe('Font', function () {
   });
 
 
-  it('kern table', function () {
-    let font = new Font(font_data_AV, font_options);
-    let bin = font.kern.toBin();
+  describe('kern table', function () {
+    it('header', function () {
+      let font = new Font(font_data_AV, font_options);
+      let bin = font.kern.toBin();
 
-    assert.equal(bin.readUInt16LE(0), bin.length);
-    assert.equal(bin.length % 4, 0);
-    assert.equal(bin.readUInt32LE(4), Buffer.from('kern').readUInt32LE(0));
-    assert.equal(bin.readUInt8(8), 0); // format
+      assert.equal(bin.readUInt16LE(0), bin.length);
+      assert.equal(bin.length % 4, 0);
+      assert.equal(bin.readUInt32LE(4), Buffer.from('kern').readUInt32LE(0));
+      assert.equal(bin.readUInt8(8), 0); // format
+    });
 
-    // Entries
-    assert.equal(bin.readUInt32LE(12), 2);
+    it('sub format 0', function () {
+      let font = new Font(font_data_AV, font_options);
+      let bin = font.kern.toBin();
 
-    const PAIRS_OFFSET = 16;
-    const VAL_OFFSET = PAIRS_OFFSET + bin.readUInt32LE(12) * 2;
+      // Entries
+      assert.equal(bin.readUInt32LE(12), 2);
 
-    // Pairs of IDs
+      const PAIRS_OFFSET = 16;
+      const VAL_OFFSET = PAIRS_OFFSET + bin.readUInt32LE(12) * 2;
 
-    // [ AV ] => [ 1, 2 ]
-    assert.equal(bin.readUInt8(PAIRS_OFFSET + 0), 1);
-    assert.equal(bin.readUInt8(PAIRS_OFFSET + 1), 2);
-    // [ VA ] => [ 2, 1 ]
-    assert.equal(bin.readUInt8(PAIRS_OFFSET + 2), 2);
-    assert.equal(bin.readUInt8(PAIRS_OFFSET + 3), 1);
+      // Pairs of IDs
 
-    // Values
-    const AV_KERN_FP4 = Math.round(font_data_AV.glyphs[0].kerning['V'.charCodeAt(0)] * 16);
-    assert.equal(bin.readInt8(VAL_OFFSET + 0), AV_KERN_FP4);
-    const VA_KERN_FP4 = Math.round(font_data_AV.glyphs[1].kerning['A'.charCodeAt(0)] * 16);
-    assert.equal(bin.readInt8(VAL_OFFSET + 1), VA_KERN_FP4);
+      // [ AV ] => [ 1, 2 ]
+      assert.equal(bin.readUInt8(PAIRS_OFFSET + 0), 1);
+      assert.equal(bin.readUInt8(PAIRS_OFFSET + 1), 2);
+      // [ VA ] => [ 2, 1 ]
+      assert.equal(bin.readUInt8(PAIRS_OFFSET + 2), 2);
+      assert.equal(bin.readUInt8(PAIRS_OFFSET + 3), 1);
+
+      // Values
+      const AV_KERN_FP4 = Math.round(font_data_AV.glyphs[0].kerning['V'.charCodeAt(0)] * 16);
+      assert.equal(bin.readInt8(VAL_OFFSET + 0), AV_KERN_FP4);
+      const VA_KERN_FP4 = Math.round(font_data_AV.glyphs[1].kerning['A'.charCodeAt(0)] * 16);
+      assert.equal(bin.readInt8(VAL_OFFSET + 1), VA_KERN_FP4);
+    });
+
+
+    it('kerning values scale', function () {
+      function isSimilar(a, b, epsilon) {
+        return Math.abs(a - b) < epsilon;
+      }
+
+      const font = new Font(font_data_AV_size200, font_options);
+      const bin_all = font.toBin();
+      const bin_kern = font.kern.toBin();
+
+      const kScale_FP4 = bin_all.readUInt16LE(32);
+
+      const PAIRS_OFFSET = 16;
+      const VAL_OFFSET = PAIRS_OFFSET + bin_kern.readUInt32LE(12) * 2;
+
+      const AV_KERN = font_data_AV_size200.glyphs[0].kerning['V'.charCodeAt(0)];
+      assert.ok(isSimilar(
+        ((bin_kern.readInt8(VAL_OFFSET + 0) * kScale_FP4) >> 4) / 16,
+        AV_KERN,
+        0.1
+      ));
+      const VA_KERN = font_data_AV_size200.glyphs[1].kerning['A'.charCodeAt(0)];
+      assert.ok(isSimilar(
+        ((bin_kern.readInt8(VAL_OFFSET + 1) * kScale_FP4) >> 4) / 16,
+        VA_KERN,
+        0.1
+      ));
+    });
+
+
+    it('sub format 3', function () {
+      let font = new Font(font_data_AV, font_options);
+      let bin_sub3 = font.kern.create_format3_data();
+
+      const map_len = bin_sub3.readUInt16LE(0);
+      assert.equal(map_len, 3);
+      const left_len = bin_sub3.readUInt8(2);
+      assert.equal(left_len, 2);
+      const right_len = bin_sub3.readUInt8(3);
+      assert.equal(right_len, 2);
+
+      const offs_map_left = 4;
+      const offs_map_right = 4 + map_len;
+      const offs_k_array = 4 + 2 * map_len;
+
+      // Values
+      const AV_KERN_FP4 = Math.round(font_data_AV.glyphs[0].kerning['V'.charCodeAt(0)] * 16);
+      const A_left  = bin_sub3.readUInt8(font.glyph_id['A'.charCodeAt(0)] + offs_map_left) - 1;
+      const V_right = bin_sub3.readUInt8(font.glyph_id['V'.charCodeAt(0)] + offs_map_right) - 1;
+      assert.equal(
+        bin_sub3.readInt8(A_left * right_len + V_right + offs_k_array),
+        AV_KERN_FP4
+      );
+
+      const VA_KERN_FP4 = Math.round(font_data_AV.glyphs[1].kerning['A'.charCodeAt(0)] * 16);
+      const V_left  = bin_sub3.readUInt8(font.glyph_id['V'.charCodeAt(0)] + offs_map_left) - 1;
+      const A_right = bin_sub3.readUInt8(font.glyph_id['A'.charCodeAt(0)] + offs_map_right) - 1;
+      assert.equal(
+        bin_sub3.readInt8(V_left * right_len + A_right + offs_k_array),
+        VA_KERN_FP4
+      );
+    });
   });
 });
