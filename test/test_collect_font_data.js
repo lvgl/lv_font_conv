@@ -77,6 +77,20 @@ describe('Collect font data', function () {
   });
 
 
+  it('Should allow multiple ranges', function () {
+    let out = collect_font_data({
+      font: [ {
+        source_path: font,
+        ranges: [ { range: [ 0x41, 0x41, 0x41, 0x51, 0x52, 0x51 ] } ]
+      } ],
+      size: 18
+    }, createCanvas);
+
+    assert.equal(out.glyphs.length, 3);
+  });
+
+
+
   it('Should work with sparse ranges', function () {
     let out = collect_font_data({
       font: [ {
