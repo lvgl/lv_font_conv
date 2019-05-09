@@ -1,12 +1,17 @@
-lv_font_conv - font convertor for LittlevGL
-===========================================
+lv_font_conv - font convertor to compact bitmap format
+======================================================
 
 [![Build Status](https://img.shields.io/travis/littlevgl/lv_font_conv/master.svg?style=flat)](https://travis-ci.org/littlevgl/lv_font_conv)
 [![NPM version](https://img.shields.io/npm/v/lv_font_conv.svg?style=flat)](https://www.npmjs.org/package/lv_font_conv)
 
-[WIP]
+Converts TTF/WOFF fonts to __[compact format](https://github.com/littlevgl/lv_font_conv/blob/master/doc/font_spec.md)__, suitable for small embedded systems. Main features are:
 
-Converts TTF fonts to internal LittlevGL format. Supports subsetting & merge.
+- Allows bitonal and anti-aliased glyphs (1-4 bits per pixel).
+- Preserves kerning info.
+- Compression.
+- Users can select required glyphs only (subsetting).
+- Multiple font sources can be merged.
+- Simple CLI interface, easy to integrate into external build systems.
 
 
 ## Install the script

@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "description": "Rasterize vector fonts for embedded use. Supports subsettings & merge.",
   "keywords": [
-    "lvgl",
-    "littlevgl"
+    "font",
+    "convertor",
+    "embedded"
   ],
   "repository": "littlevgl/lv_font_conv",
   "license": "MIT",
