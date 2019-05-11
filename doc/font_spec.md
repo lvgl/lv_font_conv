@@ -115,23 +115,6 @@ same order, most of sequences can be effectively described via Format 0. This
 may be not true for all theoretic cases, but seems to work for us.
 
 
-### Subtable Format 6 data
-
-[Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/cmap#format-6-trimmed-table-mapping)
-
-`Array[uint16]`, continuous, delta-coded.
-
-The same as Format 0, but supports wider id range (up to 65535). This is
-reserved and not used in current converter.
-
-bytes | description
-------|------------
-2 | delta-encoded Glyph ID for (range_start + 0) codePoint
-2 | delta-encoded Glyph ID for (range_start + 1) codePoint
-... | ...
-2 | delta-encoded Glyph ID for (range_end) codePoint
-
-
 ### Subtable format "spatial"
 
 For non continuous sets (CJK subsets, for example). List of `uint16_t` pairs with
