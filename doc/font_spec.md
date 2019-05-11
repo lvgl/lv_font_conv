@@ -87,7 +87,7 @@ Size (bytes) | Description
 2 | Range length (up to 65535)
 2 | Glyph ID offset (for delta-coding in `Format 0`)
 2 | Entries count
-1 | Format type (`0` => Format 0, `32` => Sparse)
+1 | Format type (`0` => Format 0, `1` => Sparse)
 1 | - (align to 4)
 
 ### Subtable Format 0 data
