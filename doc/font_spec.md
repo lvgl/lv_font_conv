@@ -28,7 +28,7 @@ Global values.
 Size (bytes) | Description
 -------------|------------
 4 | Record size (for quick skip)
-4 | 'head' (table marker)
+4 | `head` (table marker)
 2 | Version (reserved)
 2 | Number of additional tables (2 bytes to simplify align)
 2 | Font size (px), as defined in convertor params
@@ -66,16 +66,14 @@ Subtable formats implemented only partially.
 Size (bytes) | Description
 -------------|------------
 4 | Record size (for quick skip)
-4 | 'head' (table marker)
+4 | `cmap` (table marker)
 4 | Subtables count (4 to simplify align)
 16 | Subtable 1 header
 16 | Subtable 2 header
 ...|...
-? | Subtable 1 data
-? | Subtable 2 data
+? | Subtable 1 data (aligned to 4)
+? | Subtable 2 data (aligned to 4)
 ...|...
-
-**NOTE**. Subtable data length MUST be aligned to 4.
 
 All subtables are non intersecting ranges, headers and content
 are ordered by codePoint for fast scan or binary search.
@@ -84,22 +82,26 @@ are ordered by codePoint for fast scan or binary search.
 
 Size (bytes) | Description
 -------------|------------
-4 | Data offset
+4 | Data offset (or 0 if data segment not exists)
 4 | Range start (min codePoint)
 2 | Range length (up to 65535)
 2 | Glyph ID offset (for delta-coding in `Format 0`)
 2 | Entries count
-1 | Format type (`0` => Format 0, `1` => Format 6, `2` => Spatial)
+1 | Format type (`0` => Format 0, `32` => Sparse)
 1 | - (align to 4)
 
 ### Subtable Format 0 data
 
 [Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/cmap#format-0-byte-encoding-table)
 
-`Array[uint8]`, continuous, delta-coded.
+`Array[uint8]` (continuous, delta-coded), or empty data.
 
 - Index = codePoint - (Min codePoint)
 - Map to 1-byte Glyph ID as `Value + Glyph ID offset`.
+
+__Important__. If glyph ID-s are consecutive and have no gaps, data segment of
+format 0 subtable can be skipped. Because header's content is enough to
+calculate mapping. When `data offset` == 0, data segment not exists.
 
 bytes | description
 ------|------------
@@ -108,14 +110,14 @@ bytes | description
 ... | ...
 1 | delta-encoded Glyph ID for (range_end) codePoint
 
-**Note 1**. "Missed" chars are mapped to 0
+"Missed" chars are mapped to 0
 
-**Note 2**. Since we order glyph by codePoint and generate Glyph IDs in the
+**Note**. Since we order glyph by codePoint and generate Glyph IDs in the
 same order, most of sequences can be effectively described via Format 0. This
 may be not true for all theoretic cases, but seems to work for us.
 
 
-### Subtable format "spatial"
+### Subtable format "sparse"
 
 For non continuous sets (CJK subsets, for example). List of `uint16_t` pairs with
 `{ delta_encoded_codepoint, glyph_id }`. Number of entries stored in
@@ -140,7 +142,7 @@ Type is defined in `head` table.
 Size (bytes) | Description
 -------------|------------
 4 | Record size (for quick skip)
-4 | 'loca' (table marker)
+4 | `loca` (table marker)
 4 | Entries count (4 to simplify slign)
 2 or 4 | id1 offset
 2 or 4 | id2 offset
@@ -161,7 +163,7 @@ Image inside of BBox is drawn from top left corner, to right and down.
 Size (bytes) | Description
 -------------|------------
 4 | Record size (for quick skip)
-4 | 'glyf' (table marker)
+4 | `glyf` (table marker)
 ?? | Glyph id1 data
 ?? | Glyph id2 data
 ...| ...
@@ -212,7 +214,7 @@ Data layout:
 Size (bytes) | Description
 -------------|------------
 4 | Record size (for quick skip)
-4 | 'kern' (table marker)
+4 | `kern` (table marker)
 1 | Format type (0 & 3 now supported)
 3 | - (align)
 ?? | format content
