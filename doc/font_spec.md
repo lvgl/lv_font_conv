@@ -12,14 +12,14 @@ Based on https://docs.microsoft.com/en-us/typography/opentype/spec/,
 but simplified for bitmap fonts:
 
 - No separate global header, everything in 'head' table
-- `advanceWidth` placed in 'glyf' table
-- Total glyphs count limited to 65536 (char codes are not limited, up to 0x10FFF
+- `advanceWidth` placed in `glyf` table
+- Total glyphs count limited to 65536 (char codes are not limited, up to 0x10FFFF
   supported).
 - No vertical fonts.
 - No ligatures.
 
 
-## Table: 'head' (font header)
+## Table: `head` (font header)
 
 [Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/head)
 
@@ -39,8 +39,8 @@ Size (bytes) | Description
 2 | typoLineGap (uint16), typographic line gap
 2 | min Y (used to quick check line intersections with other objects)
 2 | max Y
-2 | default advanceWidth (if glyph advanceWidth bits length = 0)
-1 | kerningScale, FP12.4 unsigned, scale for kerning data, to fit source in 1 byte
+2 | default advanceWidth (uint16), if glyph advanceWidth bits length = 0
+2 | kerningScale, FP12.4 unsigned, scale for kerning data, to fit source in 1 byte
 1 | indexToLocFormat in `loca` table (`0` - Offset16, `1` - Offset32)
 1 | glyphIdFormat (`0` - 1 byte, `1` - 2 bytes)
 1 | advanceWidthFormat (`0` - Uint, `1` - unsigned with 4 bits fractional part)
@@ -48,12 +48,12 @@ Size (bytes) | Description
 1 | Glyph BBox x/y bits length (signed value)
 1 | Glyph BBox w/h bits length (unsigned)
 1 | Glyph advanceWidth bits length (unsigned, may be FP4)
-1 | Compression alg ID (0 - raw bits, other - TBD)
+1 | Compression alg ID (0 - raw bits, 1 - RLE-like with XOR prefilter)
 
 Note, `Ascent + abs(Descent)` may be NOT equal to font size.
 
 
-## Table: 'cmap'
+## Table: `cmap`
 
 [Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/cmap)
 
@@ -85,19 +85,19 @@ Size (bytes) | Description
 4 | Data offset (or 0 if data segment not exists)
 4 | Range start (min codePoint)
 2 | Range length (up to 65535)
-2 | Glyph ID offset (for delta-coding in `Format 0`)
-2 | Entries count
+2 | Glyph ID offset (for delta-coding)
+2 | Data entries count (for sparse data)
 1 | Format type (`0` => Format 0, `1` => Sparse)
 1 | - (align to 4)
 
-### Subtable Format 0 data
+### Subtable "format 0" data
 
 [Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/cmap#format-0-byte-encoding-table)
 
 `Array[uint8]` (continuous, delta-coded), or empty data.
 
 - Index = codePoint - (Min codePoint)
-- Map to 1-byte Glyph ID as `Value + Glyph ID offset`.
+- Map to Glyph ID as `Value + Glyph ID offset`.
 
 __Important__. If glyph ID-s are consecutive and have no gaps, data segment of
 format 0 subtable can be skipped. Because header's content is enough to
@@ -117,7 +117,7 @@ same order, most of sequences can be effectively described via Format 0. This
 may be not true for all theoretic cases, but seems to work for us.
 
 
-### Subtable format "sparse"
+### Subtable "format sparse" data
 
 For non continuous sets (CJK subsets, for example). List of `uint16_t` pairs with
 `{ delta_encoded_codepoint, glyph_id }`. Number of entries stored in
@@ -132,11 +132,11 @@ bytes | description
 ... | ...
 
 
-## Table: 'loca'
+## Table: `loca`
 
 [Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/loca)
 
-Data offsets in 'glyf' table for each glyph id. Can be `Offset16` or `Offset32`.
+Data offsets in `glyf` table for each glyph id. Can be `Offset16` or `Offset32`.
 Type is defined in `head` table.
 
 Size (bytes) | Description
@@ -149,7 +149,7 @@ Size (bytes) | Description
 ... | ...
 
 
-## Table: 'glyf'
+## Table: `glyf`
 
 [Initial Reference](https://docs.microsoft.com/en-us/typography/opentype/spec/glyf)
 
@@ -191,7 +191,7 @@ NN | BBox Height (see length in font header)
 ?? | Compressed bitmap
 
 
-## Table 'kern'
+## Table `kern`
 
 Initial References: [1](https://docs.microsoft.com/en-us/typography/opentype/spec/kern),
 [2](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6kern.html)
@@ -247,8 +247,8 @@ Kerning pair size depends on `glyphIdFormat` from header.
 
 See Apple's [truetype reference](https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6kern.html).
 
-Data format is very similar to one, suggested by apple. The only difference is,
-that we store kerning values directly, without index, because our values are
+Data format is very similar to one, suggested by Apple. The only difference is,
+we store kerning values directly (without index), because values are
 always 1 byte.
 
 Content:
