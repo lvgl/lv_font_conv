@@ -119,17 +119,19 @@ may be not true for all theoretic cases, but seems to work for us.
 
 ### Subtable "format sparse" data
 
-For non continuous sets (CJK subsets, for example). List of `uint16_t` pairs with
-`{ delta_encoded_codepoint, glyph_id }`. Number of entries stored in
-subtable header.
+For non continuous sets (CJK subsets, for example). `Array[entries]` of
+delta-coded codepoints + `Array[entries]` of delta-coded glyph IDs.
 
 bytes | description
 ------|------------
 2 | (codePoint1 - range_start)
-2 | delta-encoded Glyph1 ID
 2 | (codePoint2 - range_start)
+...|...
+2 |(last codepoint - range_start)
+2 | delta-encoded Glyph1 ID
 2 | delta-encoded Glyph2 ID
 ... | ...
+2 | delta-encoded last glyph ID
 
 
 ## Table: `loca`
