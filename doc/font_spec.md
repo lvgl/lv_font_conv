@@ -87,7 +87,7 @@ Size (bytes) | Description
 2 | Range length (up to 65535)
 2 | Glyph ID offset (for delta-coding)
 2 | Data entries count (for sparse data)
-1 | Format type (`0` => Format 0, `1` => Sparse)
+1 | Format type (`0` => format 0, `1` => format sparse, `2` => format 0 tiny, `3` => format sparse tiny)
 1 | - (align to 4)
 
 ### Subtable "format 0" data
@@ -99,10 +99,6 @@ Size (bytes) | Description
 - Index = codePoint - (Min codePoint)
 - Map to Glyph ID as `Value + Glyph ID offset`.
 
-__Important__. If glyph ID-s are consecutive and have no gaps, data segment of
-format 0 subtable can be skipped. Because header's content is enough to
-calculate mapping. When `data offset` == 0, data segment not exists.
-
 bytes | description
 ------|------------
 1 | delta-encoded Glyph ID for (range_start + 0) codePoint
@@ -111,10 +107,6 @@ bytes | description
 1 | delta-encoded Glyph ID for (range_end) codePoint
 
 "Missed" chars are mapped to 0
-
-**Note**. Since we order glyph by codePoint and generate Glyph IDs in the
-same order, most of sequences can be effectively described via Format 0. This
-may be not true for all theoretic cases, but seems to work for us.
 
 
 ### Subtable "format sparse" data
@@ -132,6 +124,24 @@ bytes | description
 2 | delta-encoded Glyph2 ID
 ... | ...
 2 | delta-encoded last glyph ID
+
+
+### Subtable "format 0 tiny"
+
+Special case of "format 0", without IDs index.
+
+In most of cases, glyph IDs will be consecutive and have no gaps. Then we can
+calculate ID value as `glyph ID offset + codepoint index`.
+
+In total, this format will have header only, without data.
+
+
+### Subtable "format sparse tiny"
+
+Exactly as "format sparse", but without glyph IDs index at the end
+(with codepoints only).
+
+See "format 0 tiny" for explanations.
 
 
 ## Table: `loca`
