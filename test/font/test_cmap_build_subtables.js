@@ -15,8 +15,8 @@ describe('Cmap build subtables', function () {
     assert.deepEqual(cmap_split([ 42 ]), [ [ 'format0', [ 42 ] ] ]);
   });
 
-  it('Should represent two characters as spatial', function () {
-    assert.deepEqual(cmap_split([ 10, 100 ]), [ [ 'spatial', [ 10, 100 ] ] ]);
+  it('Should represent two characters as sparse', function () {
+    assert.deepEqual(cmap_split([ 10, 100 ]), [ [ 'sparse', [ 10, 100 ] ] ]);
   });
 
   it('Should split ranges', function () {
@@ -44,7 +44,7 @@ describe('Cmap build subtables', function () {
 
     assert.deepEqual(cmap_split(set), [
       [ 'format0', [ ...range(65, 90), ...range(97, 122) ] ],
-      [ 'spatial', [ 196, 214, 220, 223, 228, 246, 252, 1025 ] ],
+      [ 'sparse', [ 196, 214, 220, 223, 228, 246, 252, 1025 ] ],
       [ 'format0', [ ...range(1040, 1103), 1105 ] ],
       [ 'format0', [ 7838 ] ]
     ]);

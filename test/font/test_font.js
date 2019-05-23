@@ -136,8 +136,8 @@ describe('Font', function () {
 
     // Check IDs (sparsed subtable)
     assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 0), 0); // 'A' => 65+0 => 65
-    assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 2), 0); // 'A' ID => 1+0 => 1
-    assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 4), 21); // 'W' => 65+21 => 86
+    assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 4), 0); // 'A' ID => 1+0 => 1
+    assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 2), 21); // 'W' => 65+21 => 86
     assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 6), 1); // 'W' ID => 1+1 => 2
   });
 
