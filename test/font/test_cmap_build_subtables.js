@@ -12,25 +12,25 @@ function range(from, to) {
 describe('Cmap build subtables', function () {
 
   it('Should represent a single character as format0', function () {
-    assert.deepEqual(cmap_split([ 42 ]), [ [ 'format0', [ 42 ] ] ]);
+    assert.deepEqual(cmap_split([ 42 ]), [ [ 'format0_tiny', [ 42 ] ] ]);
   });
 
   it('Should represent two characters as sparse', function () {
-    assert.deepEqual(cmap_split([ 10, 100 ]), [ [ 'sparse', [ 10, 100 ] ] ]);
+    assert.deepEqual(cmap_split([ 10, 100 ]), [ [ 'sparse_tiny', [ 10, 100 ] ] ]);
   });
 
   it('Should split ranges', function () {
-    assert.deepEqual(cmap_split([ 1, ...range(100, 110), 200 ]), [
-      [ 'format0', [ 1 ] ],
-      [ 'format0', range(100, 110) ],
-      [ 'format0', [ 200 ] ]
+    assert.deepEqual(cmap_split([ 1, ...range(100, 140), 200 ]), [
+      [ 'format0_tiny', [ 1 ] ],
+      [ 'format0_tiny', range(100, 140) ],
+      [ 'format0_tiny', [ 200 ] ]
     ]);
   });
 
   it('Should split more than 256 characters into multiple ranges', function () {
     assert.deepEqual(cmap_split(range(1, 257)), [
-      [ 'format0', [ 1 ] ],
-      [ 'format0', range(2, 257) ]
+      [ 'format0_tiny', [ 1 ] ],
+      [ 'format0_tiny', range(2, 257) ]
     ]);
   });
 
@@ -43,10 +43,11 @@ describe('Cmap build subtables', function () {
     ];
 
     assert.deepEqual(cmap_split(set), [
-      [ 'format0', [ ...range(65, 90), ...range(97, 122) ] ],
-      [ 'sparse', [ 196, 214, 220, 223, 228, 246, 252, 1025 ] ],
-      [ 'format0', [ ...range(1040, 1103), 1105 ] ],
-      [ 'format0', [ 7838 ] ]
+      [ 'format0_tiny', range(65, 90) ],
+      [ 'format0_tiny', range(97, 122) ],
+      [ 'sparse_tiny', [ 196, 214, 220, 223, 228, 246, 252, 1025 ] ],
+      [ 'format0_tiny', range(1040, 1103) ],
+      [ 'sparse_tiny', [ 1105, 7838 ] ]
     ]);
   });
 });
