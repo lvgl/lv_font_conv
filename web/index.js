@@ -21,7 +21,7 @@ document.querySelector('#sourceFontFile').addEventListener('change', function ha
       name: file.name,
       size: file.size,
       type: file.type,
-      data: Buffer.from(e.target.result)
+      data: e.target.result
     };
   };
   reader.readAsArrayBuffer(file);
