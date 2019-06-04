@@ -58,8 +58,8 @@ Per font:
   previously declared `--font`. Can be used multiple times. Examples:
   - `-r 0x1F450` - single value, dec or hex format.
   - `-r 0x1F450-0x1F470` - range.
-  - `-r 0x1F450=>0xF005` - single glyph with mapping.
-  - `-r 0x1F450-0x1F470=>0xF005` - range with mapping.
+  - `-r '0x1F450=>0xF005'` - single glyph with mapping.
+  - `-r '0x1F450-0x1F470=>0xF005'` - range with mapping.
   - `-r 0x1F450 -r 0x1F451-0x1F470` - 2 ranges.
   - `-r 0x1F450,0x1F451-0x1F470` - the same as above, but defined with single `-r`.
 - `--symbols` - list of characters to copy (instead of numeric format in `-r`).
