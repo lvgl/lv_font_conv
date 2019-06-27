@@ -90,3 +90,27 @@ Merge english & russian from Roboto Regular, and show debug info:
 Dump all Roboto glyphs to inspect icons and font details:
 
 `lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --size 16 --format dump --bpp 3 -o ./dump`
+
+
+## Technical notes
+
+### Supported output formats
+
+1. **bin** - universal binary format, as described in https://github.com/littlevgl/lv_font_conv/tree/master/doc.
+2. **lvgl** - format for LittlevGL, C file. Has minor limitations and a bit
+   bigger size, because C does not allow to effectively define relative offsets
+   in data blocks.
+3. **dump** - create folder with each glyph in separate image, and other font
+   data as `json`. Useful for debug.
+
+### Merged font metrics
+
+When multiple fonts merged into one, sources can have different metrics. Result
+will follow principles below:
+
+1. No scaling. Glyphs will have exactly the same size, as intended by font authors.
+2. The same baseline.
+3. `OS/2` metrics (`sTypoAscender`, `sTypoDescender`, `sTypoLineGap`) will be
+   used from the first font in list.
+4. `hhea`  metrics (`ascender`, `descender`), defined as max/min point of all
+   font glyphs, are recalculated, according to new glyphs set.
