@@ -81,11 +81,11 @@ Additional debug options:
 Merge english from Roboto Regular and icons from Font Awesome, and show debug
 info:
 
-`env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --font FontAwesome.ttf -r 0xFE00=>0x81 --size 16 --format bin --bpp 3 -o output.font`
+`env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --font FontAwesome.ttf -r 0xFE00=>0x81 --size 16 --format bin --bpp 3 --no-compress --no-prefilter -o output.font`
 
 Merge english & russian from Roboto Regular, and show debug info:
 
-`env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F -r 0x401,0x410-0x44F,0x451 --size 16 --format bin --bpp 3 -o output.font`
+`env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F -r 0x401,0x410-0x44F,0x451 --size 16 --format bin --bpp 3 --no-compress --no-prefilter -o output.font`
 
 Dump all Roboto glyphs to inspect icons and font details:
 
