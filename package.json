@@ -29,7 +29,7 @@
     "canvas": "^2.4.1",
     "debug": "^4.1.1",
     "glob": "^7.1.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.14",
     "make-error": "^1.3.5",
     "mkdirp": "^0.5.1",
     "opentype.js": "^1.1.0",
@@ -37,15 +37,15 @@
   },
   "devDependencies": {
     "bootstrap": "^4.3.1",
-    "eslint": "^5.8.0",
+    "eslint": "^6.0.1",
     "file-saver": "^2.0.2",
     "jquery": "^3.3.1",
     "mocha": "^6.1.4",
-    "nyc": "^14.0.0",
+    "nyc": "^14.1.1",
     "parcel-bundler": "^1.12.3",
     "popper.js": "^1.14.7",
     "posthtml-include": "^1.2.0",
     "roboto-fontface": "^0.10.0",
-    "sass": "^1.17.3"
+    "sass": "^1.22.4"
   }
 }
