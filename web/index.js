@@ -118,15 +118,30 @@ document.querySelector('#converterForm').addEventListener('submit', function han
     }
   }
 
-  const result = convert({
-    font: fonts,
-    size: parseInt(_size, 10),
-    bpp: parseInt(_bpp, 10),
-    no_compress : true,
-    no_prefilter : true,
-    format: 'lvgl',
-    output: _name
-  }, createCanvas);
+  const AppError = require('../lib/app_error');
+  var result;
+  try {
+    result = convert({
+      font: fonts,
+      size: parseInt(_size, 10),
+      bpp: parseInt(_bpp, 10),
+      no_compress : true,
+      no_prefilter : true,
+      format: 'lvgl',
+      output: _name
+    }, createCanvas);
+  } catch (err) {
+    /*eslint-disable no-alert*/
+    // Try to beautify normal errors
+    if (err instanceof AppError) {
+      alert(err.message.trim());
+      process.exit(1);
+    } else {
+      alert(err);
+    }
+    // rethrow crashes
+    throw err;
+  }
 
   var FileSaver = require('file-saver');
 
