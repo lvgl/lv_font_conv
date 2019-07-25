@@ -29,7 +29,7 @@
     
 <div class="row">
 	<div class="col-md-9 col-md-offset-2">
-		<form id="converterForm" enctype="multipart/form-data" name="font_conv" onsubmit="return validate_font_conv_form()" style="padding:12px; border-radius:4px; border-style:solid; border-width:2px; border-color:#7babda">
+		<form id="converterForm" enctype="multipart/form-data" name="font_conv" style="padding:12px; border-radius:4px; border-style:solid; border-width:2px; border-color:#7babda">
 
 			<!-- GENERAL PARAMTERS -->
 			
@@ -43,7 +43,7 @@
 			<div class="form-group row">
 				<label for="height" class="col-md-2 col-form-label">Size</label>
 				<div class="col-md-5">
-					<input type="number" name="height" id="height" class="form-control" placeholder="Height in px" value=20>
+					<input type="number" name="height" id="height" class="form-control" placeholder="Height in px" value="20">
 				</div>
 			</div>
 			
@@ -61,51 +61,33 @@
 			<hr/>
 			
 			<!-- FONTS -->
-			
-			<div class='form-group row'>
-				<label for="font_file_1" class="form-label col-md-2">TTF/WOFF file</label>
-				<div class="col-md-10">   
-					<input type="file" name="font_file_1" id="font_file_1" class="form-control-file" >
+			<div class="form-group row font-controls" id="font-controls-clone-source">
+				<div class="form-group row" >
+					TTF/WOFF file
+					<div class="col-md-10">   
+						<input type="file" class="form-control-file font_file" >
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					Range
+					<div class="col-md-10">
+						<textarea rows="2" cols="40" class="form-control font_range" placeholder="Ranges and/or characters to include. E.g. 0x20-0x7F, 0x200, 450"></textarea>
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					Symbols
+					<div class="col-md-10">
+						<textarea rows="2" cols="50" class="form-control font_symbols" placeholder="List of character to include. E.g. ABC0123ÁÉŐ"></textarea>
+					</div>
 				</div>
 			</div>
 			
-			<div class="form-group row">
-				<label for="range_1" class="col-md-2 col-form-label">Range</label>
-				<div class="col-md-10">
-					<textarea rows="2" cols="40" name="range_1" id="range_1" class="form-control" placeholder="Ranges and/or characters to include. E.g. 0x20-0x7F, 0x200, 450"></textarea>
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<label for="symbols_1" class="col-md-2 col-form-label">Symbols</label>
-				<div class="col-md-10">
-					<textarea rows="2" cols="50" name="symbols_1" id="symbols_1" class="form-control" placeholder="List of character to include. E.g. ABC0123ÁÉŐ"></textarea>
-				</div>
-			</div>
 
 			<hr/>
-			
-			<div class='form-group row'>
-				<label for="font_file_2" class="form-label col-md-2">TTF/WOFF file</label>
-				<div class="col-md-10">   
-					<input type="file" name="font_file_2" id="font_file_2" class="form-control-file" >
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<label for="range" class="col-md-2 col-form-label">Range</label>
-				<div class="col-md-10">
-					<textarea rows="2" cols="40" name="range_2" id="range_2" class="form-control" placeholder="Ranges and/or characters to include. E.g. 0x20-0x7F, 0x200, 450"></textarea>
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<label for="symbols" class="col-md-2 col-form-label">Symbols</label>
-				<div class="col-md-10">
-					<textarea rows="2" cols="50" name="symbols_2" id="symbols_2" class="form-control" placeholder="List of character to include. E.g. ABC0123ÁÉŐ"></textarea>
-				</div>
-			</div>
-
+			<button type="button" id="insert-button">Include another font</button>
+			<br/>
 			<small>You can use both "Range" and "Symbols" or only one of them</small>
 			<hr/>
 						
@@ -132,9 +114,10 @@
             61560,61561,61563,61587,61589,61636,61637,61639,61671,61683<br>
             61724,61732,61787,61931,62016,62017,62018,62019,62020,62099</li>
         <li>To learn more about the <strong>font handling of LittelvGL</strong> read this <a href="https://docs.littlevgl.com/#Fonts">Guide</a></li>
-        <li>To use the Fonts <strong>without LittlevGL</strong> you need <em>lv_font.c/h</em>, <em>lv_font_fmt_txt.c/h</em> from <a href="https://github.com/littlevgl/lvgl/blob/master/lv_misc" target="_blank">here</a>.
+        <li>To use the Fonts <strong>without LittlevGL</strong> you need <em>lv_font.c/h</em>, <em>lv_font_fmt_txt.c/h</em> from <a href="https://github.com/littlevgl/lvgl/blob/master/lv_misc" target="_blank">here</a>.</li>
     </ul>
   </div>
 
 <script src="./index.js" type="text/javascript"></script>
 
+</div>
