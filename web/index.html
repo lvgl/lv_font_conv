@@ -1,123 +1,18 @@
-<div class="row" style="margin-bottom:48px;">
-	<div class="col-md-8 col-md-offset-2">
-	    <p>With this free online font converter tool you can create C array from any TTF or WOFF font. You can select ranges of Unicode characters and speficy the bpp (bit-per-pixel).</p>
-	    
-	    <p>The font converter is designed to be compitible with <a hreaf="https://littlevgl.com" title="Open-source Embedded GUI Library">LittlevGL</a> but with minor modification you can make it compatible with other graphics libraries.</p>
-	
-		<p>The offline version of the converter is available <a href="https://github.com/littlevgl/lv_font_conv" title="Offline font converter on GitHub">here</a></p>
-	
-		<h3>How to use the font converter?</h3>
-		<ol>
-		    <li>Give <strong>name</strong> to the output font. E.g. "arial_40"</li>
-		    <li>Specify the <strong>height</strong> in px</li>
-		    <li>Set the <strong>bpp</strong> (bit-per-piel). Higher value results smoother (anti-aliased) font</li>
-		    <li>Choose a <strong>TTF or WOFF font</strong></li>
-		    <li>Set a <strong>range</strong> of Unicode character to include in your font or list the characters in the <strong>Symbols</strong> field</li>
-			<li>Optionally choose and other font too and specify the ranges and/or symbols for it as well. The characters will be merged into the final C file.</li>
-		    <li>Click the <strong>Convert</strong> button to download the result C file.</li>
-		</ol>
-	
-		<h3>How to use the generated fonts in LittlevGL?</h3>
-		<ol>
-		    <li>Copy the result C file into your LittlevGL project</li>
-		    <li>In a C file of your application declare the font as: <code class="code-inline">extern lv_font_t my_font_name;</code> 
-		        or simply <code class="code-inline">LV_FONT_DECLARE(my_font_name);</code></li>
-		    <li>Set the font in a style: <code class="code-inline">style.text.font = &amp;my_font_name;</code> </li>
-		</ol>
-	</div>
-</div>
-    
-<div class="row">
-	<div class="col-md-9 col-md-offset-2">
-		<form id="converterForm" enctype="multipart/form-data" name="font_conv" style="padding:12px; border-radius:4px; border-style:solid; border-width:2px; border-color:#7babda">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>LittlevGL font convertor</title>
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  </head>
 
-			<!-- GENERAL PARAMTERS -->
-			
-			<div class="form-group row">
-				<label for="name" class="form-label col-md-2">Name</label>
-				<div class="col-md-5">   
-					<input type="text" name="name" id="name" class="form-control" placeholder="E.g. arial_40">
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<label for="height" class="col-md-2 col-form-label">Size</label>
-				<div class="col-md-5">
-					<input type="number" name="height" id="height" class="form-control" placeholder="Height in px" value="20">
-				</div>
-			</div>
-			
-			<div class="form-group row">
-				<label for="bpp" class="col-md-2 col-form-label">Bpp</label>
-				<div class="col-md-5">
-				    <select name="bpp" id="bpp" class="form-control" >
-	                  <option value="1">1 bit-per-pixel</option>
-	                  <option value="2">2 bit-per-pixel</option>
-	                  <option value="4">4 bit-per-pixel</option>
-	                </select>
-				</div>
-			</div>
-			
-			<hr/>
-			
-			<!-- FONTS -->
-			<div class="form-group row font-controls" id="font-controls-clone-source">
-				<div class="form-group row" >
-					TTF/WOFF file
-					<div class="col-md-10">   
-						<input type="file" class="form-control-file font_file" >
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					Range
-					<div class="col-md-10">
-						<textarea rows="2" cols="40" class="form-control font_range" placeholder="Ranges and/or characters to include. E.g. 0x20-0x7F, 0x200, 450"></textarea>
-					</div>
-				</div>
-				
-				<div class="form-group row">
-					Symbols
-					<div class="col-md-10">
-						<textarea rows="2" cols="50" class="form-control font_symbols" placeholder="List of character to include. E.g. ABC0123ÁÉŐ"></textarea>
-					</div>
-				</div>
-			</div>
-			
-
-			<hr/>
-			<button type="button" id="insert-button">Include another font</button>
-			<br/>
-			<small>You can use both "Range" and "Symbols" or only one of them</small>
-			<hr/>
-						
-			<div class="form-group">
-				<input type="submit" value="Convert" name="submit" class="btn btn-primary btn-lg">
-			</div>
-			
-			<div class="form-group">
-			</div>
-		</form>
-		
-    <p><a href="/ttf-font-to-c-array-old">Old version for v5.3</a></p>
-    
-    <h3>Useful notes</h3>
-    <ul class="ul-space">
-        <li><strong>Unicode table</strong> to pick letters: <a href="https://unicode-table.com/" target="_blank">https://unicode-table.com/</a></li>
-        <li><strong>Unicode ranges</strong> <a href="http://jrgraphix.net/research/unicode.php" target="_blank">http://jrgraphix.net/research/unicode.php</a></li>
-        <li><strong>A pixel perefect fonts</strong>: <a href="https://sourceforge.net/projects/terminus-font/">Terminus</a>. </li>		    
-        <li><strong>A symbol font</strong> FontAwesome: <a href="https://littlevgl.com/tools/FontAwesome.ttf">Download</a> or visit its <a href="https://fontawesome.com/" target="_blank">Website</a>.</li>
-        <li><strong>List of built-in symbols</strong> (copy the list to <em>Range</em> and select FontAwesome.ttf): <br>  
-		    61441,61448,61451,61452,61453,61457,61459,61460,61461,61465<br>
-            61468,61473,61478,61479,61480,61502,61504,61512,61515,61516<br>
-            61517,61521,61522,61523,61524,61543,61544,61553,61556,61559<br>
-            61560,61561,61563,61587,61589,61636,61637,61639,61671,61683<br>
-            61724,61732,61787,61931,62016,62017,62018,62019,62020,62099</li>
-        <li>To learn more about the <strong>font handling of LittelvGL</strong> read this <a href="https://docs.littlevgl.com/#Fonts">Guide</a></li>
-        <li>To use the Fonts <strong>without LittlevGL</strong> you need <em>lv_font.c/h</em>, <em>lv_font_fmt_txt.c/h</em> from <a href="https://github.com/littlevgl/lvgl/blob/master/lv_misc" target="_blank">here</a>.</li>
-    </ul>
-  </div>
-
-<script src="./index.js" type="text/javascript"></script>
-
-</div>
+  <body style="margin:40px 40px;">
+    <include src="content.html"></include>
+  </body>
+</html>

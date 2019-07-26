@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "parcel ./web/index.html --open",
-    "build": "parcel build ./web/index.html --public-url ./",
+    "build": "parcel build ./web/index.html ./web/content.html --public-url ./",
     "lint": "eslint .",
     "test": "npm run lint && nyc mocha",
     "coverage": "npm run test && nyc report --reporter html"
