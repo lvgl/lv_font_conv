@@ -72,11 +72,9 @@ document.querySelector('#converterForm').addEventListener('submit', function han
   let syms;
   $('.font-controls').each(function (index, el) {
     let $fontControls = $(el);
-    console.log(el);
     r_str = $fontControls.find('.font_range').val();
     syms = $fontControls.find('.font_symbols').val();
     let selectedFile = $fontControls.data('selected-file');
-    console.log('selectedFile ' + selectedFile);
     if (selectedFile && (r_str.length || syms.length)) {
       fonts[fcnt] = {
         source_path: selectedFile.name,
@@ -101,7 +99,6 @@ document.querySelector('#converterForm').addEventListener('submit', function han
         }
       }
       fcnt++;
-      console.log('Added font');
     }
   });
 
