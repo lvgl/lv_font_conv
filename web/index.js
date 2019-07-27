@@ -1,6 +1,6 @@
 const convert = require('../lib/convert');
 
-var $ = require('jquery');
+/*eslint-env jquery*/
 
 
 function handleFiles() {

@@ -2,7 +2,7 @@
 	<div class="col-md-8 col-md-offset-2">
 	    <p>With this free online font converter tool you can create C array from any TTF or WOFF font. You can select ranges of Unicode characters and speficy the bpp (bit-per-pixel).</p>
 	    
-	    <p>The font converter is designed to be compitible with <a hreaf="https://littlevgl.com" title="Open-source Embedded GUI Library">LittlevGL</a> but with minor modification you can make it compatible with other graphics libraries.</p>
+	    <p>The font converter is designed to be compatible with <a href="https://littlevgl.com" title="Open-source Embedded GUI Library">LittlevGL</a> but with minor modification you can make it compatible with other graphics libraries.</p>
 	
 		<p>The offline version of the converter is available <a href="https://github.com/littlevgl/lv_font_conv" title="Offline font converter on GitHub">here</a></p>
 	
@@ -61,23 +61,22 @@
 			<hr/>
 			
 			<!-- FONTS -->
-			<div class="form-group row font-controls" id="font-controls-clone-source">
-				<div class="form-group row" >
-					TTF/WOFF file
+			<div class="font-controls" id="font-controls-clone-source">
+				<div class="form-group row">
+					<label class="form-label col-md-2">TTF/WOFF file</label>
 					<div class="col-md-10">   
 						<input type="file" class="form-control-file font_file" >
 					</div>
 				</div>
-				
+					
 				<div class="form-group row">
-					Range
+					<label class="form-label col-md-2">Range</label>
 					<div class="col-md-10">
 						<textarea rows="2" cols="40" class="form-control font_range" placeholder="Ranges and/or characters to include. E.g. 0x20-0x7F, 0x200, 450"></textarea>
 					</div>
 				</div>
-				
 				<div class="form-group row">
-					Symbols
+					<label class="form-label col-md-2">Symbols</label>
 					<div class="col-md-10">
 						<textarea rows="2" cols="50" class="form-control font_symbols" placeholder="List of character to include. E.g. ABC0123ÁÉŐ"></textarea>
 					</div>
