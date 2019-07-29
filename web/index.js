@@ -52,6 +52,9 @@ function addFont() {
   resetInput($clone.find('.font_symbols'));
   $clone.data('selected-file', null); /* just to be sure */
   $clone.insertBefore($('#insert-button'));
+  $('<button></button>').addClass('btn btn-primary btn-md').text('Remove this font').click(function() {
+    $(this).parent().remove();
+  }).insertBefore($clone.find('hr'));
   addFontFileChangeHandlers();
 }
 
