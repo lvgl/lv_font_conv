@@ -22,47 +22,52 @@ describe('Cli', function () {
   });
 
 
-  it('Should print error if range is specified without font', function () {
-    assert.throws(() => {
-      run('--range 123 --font test'.split(' '), true);
-    }, /Only allowed after/);
+  it('Should print error if range is specified without font', async function () {
+    await assert.rejects(
+      run('--range 123 --font test'.split(' '), true),
+      /Only allowed after/
+    );
   });
 
 
-  it('Should print error if range is invalid', function () {
-    assert.throws(() => {
-      run('--font test --range invalid'.split(' '), true);
-    }, /Invalid range value/);
+  it('Should print error if range is invalid', async function () {
+    await assert.rejects(
+      run('--font test --range invalid'.split(' '), true),
+      /Invalid range value/
+    );
   });
 
 
-  it('Should require character set specified for each font', function () {
-    assert.throws(() => {
-      run('--font test --size 18 --bpp 4 --format dump'.split(' '), true);
-    }, /You need to specify either /);
+  it('Should require character set specified for each font', async function () {
+    await assert.rejects(
+      run('--font test --size 18 --bpp 4 --format dump'.split(' '), true),
+      /You need to specify either /
+    );
   });
 
 
-  it('Should print error if size is invalid', function () {
-    assert.throws(() => {
-      run('--size 10xxx'.split(' '), true);
-    }, /Invalid int value/);
+  it('Should print error if size is invalid', async function () {
+    await assert.rejects(
+      run('--size 10xxx'.split(' '), true),
+      /Invalid int value/
+    );
   });
 
 
-  it('Should print error if size is zero', function () {
-    assert.throws(() => {
-      run('--size 0'.split(' '), true);
-    }, /Invalid int value/);
+  it('Should print error if size is zero', async function () {
+    await assert.rejects(
+      run('--size 0'.split(' '), true),
+      /Invalid int value/
+    );
   });
 
 
-  it('Should write a font using "dump" writer', function () {
+  it('Should write a font using "dump" writer', async function () {
     let rnd = Math.random().toString(16).slice(2, 10);
     let dir = path.join(__dirname, rnd);
 
     try {
-      run([
+      await run([
         '--font', font, '--range', '0x20-0x22', '--size', '18',
         '-o', dir, '--bpp', '2', '--format', 'dump'
       ], true);
@@ -74,12 +79,12 @@ describe('Cli', function () {
   });
 
 
-  it('Should write a font using "bin" writer', function () {
+  it('Should write a font using "bin" writer', async function () {
     let rnd = Math.random().toString(16).slice(2, 10) + '.font';
     let file = path.join(__dirname, rnd);
 
     try {
-      run([
+      await run([
         '--font', font, '--range', '0x20-0x22', '--size', '18',
         '-o', file, '--bpp', '2', '--format', 'bin'
       ], true);
@@ -93,10 +98,11 @@ describe('Cli', function () {
   });
 
 
-  it('Should require output for "dump" writer', function () {
-    assert.throws(() => {
-      run([ '--font', font, '--range', '0x20-0x22', '--size', '18', '--bpp', '2', '--format', 'dump' ], true);
-    }, /Output is required for/);
+  it('Should require output for "dump" writer', async function () {
+    await assert.rejects(
+      run([ '--font', font, '--range', '0x20-0x22', '--size', '18', '--bpp', '2', '--format', 'dump' ], true),
+      /Output is required for/
+    );
   });
 
   describe('range', function () {

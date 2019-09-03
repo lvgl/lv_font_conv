@@ -4,9 +4,7 @@
 
 const AppError = require('./lib/app_error');
 
-try {
-  require('./lib/cli').run(process.argv.slice(2));
-} catch (err) {
+require('./lib/cli').run(process.argv.slice(2)).catch(err => {
   // Try to beautify normal errors
   if (err instanceof AppError) {
     /*eslint-disable no-console*/
@@ -15,4 +13,4 @@ try {
   }
   // rethrow crashes
   throw err;
-}
+});

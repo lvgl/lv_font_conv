@@ -1,4 +1,5 @@
 const convert = require('../lib/convert');
+const FileSaver = require('file-saver');
 
 /*eslint-env jquery*/
 
@@ -106,35 +107,30 @@ document.querySelector('#converterForm').addEventListener('submit', function han
   });
 
   const AppError = require('../lib/app_error');
-  var result;
-  try {
-    result = convert({
-      font: fonts,
-      size: parseInt(_size, 10),
-      bpp: parseInt(_bpp, 10),
-      no_compress : true,
-      no_prefilter : true,
-      format: 'lvgl',
-      output: _name
-    }, createCanvas);
-  } catch (err) {
+
+  convert({
+    font: fonts,
+    size: parseInt(_size, 10),
+    bpp: parseInt(_bpp, 10),
+    no_compress : true,
+    no_prefilter : true,
+    format: 'lvgl',
+    output: _name
+  }, createCanvas).then(result => {
+    const blob = new Blob([ result[_name] ], { type: 'text/plain;charset=utf-8' });
+
+    FileSaver.saveAs(blob, _name + '.c');
+  }).catch(err => {
     /*eslint-disable no-alert*/
     // Try to beautify normal errors
     if (err instanceof AppError) {
       alert(err.message.trim());
-      process.exit(1);
-    } else {
-      alert(err);
+      return;
     }
-    // rethrow crashes
-    throw err;
-  }
 
-  var FileSaver = require('file-saver');
+    alert(err);
 
-  var blob = new Blob([ result[_name] ], {
-    type: 'text/plain;charset=utf-8'
+    /* eslint-disable no-console */
+    console.error(err);
   });
-
-  FileSaver.saveAs(blob, _name + '.c');
 }, false);
