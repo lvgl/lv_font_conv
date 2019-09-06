@@ -19,6 +19,8 @@
   "scripts": {
     "start": "parcel ./web/index.html --open",
     "build": "parcel build ./web/index.html ./web/content.html --public-url ./",
+    "build:dockerimage": "docker image inspect -f ok lv_font_conf_freetype || docker build -t lv_font_conf_freetype ./support",
+    "build:freetype": "docker run --rm -v $(pwd):/src/lv_font_conf -it lv_font_conf_freetype ./lv_font_conf/support/build.sh",
     "lint": "eslint .",
     "test": "npm run lint && nyc mocha",
     "coverage": "npm run test && nyc report --reporter html"
