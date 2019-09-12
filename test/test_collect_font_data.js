@@ -4,6 +4,7 @@
 const assert            = require('assert');
 const collect_font_data = require('../lib/collect_font_data');
 const canvas            = require('canvas');
+const fs                = require('fs');
 
 
 function createCanvas(w, h) {
@@ -11,7 +12,8 @@ function createCanvas(w, h) {
 }
 
 
-const font = require.resolve('roboto-fontface/fonts/roboto/Roboto-Black.woff');
+const source_path = require.resolve('roboto-fontface/fonts/roboto/Roboto-Black.woff');
+const source_bin  = fs.readFileSync(source_path);
 
 
 describe('Collect font data', function () {
@@ -19,7 +21,8 @@ describe('Collect font data', function () {
   it('Should convert range to bitmap', async function () {
     let out = await collect_font_data({
       font: [ {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ { range: [ 0x41, 0x42, 0x80 ] } ]
       } ],
       size: 18
@@ -34,7 +37,8 @@ describe('Collect font data', function () {
   it('Should convert symbols to bitmap', async function () {
     let out = await collect_font_data({
       font: [ {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ { symbols: 'AB' } ]
       } ],
       size: 18
@@ -49,7 +53,8 @@ describe('Collect font data', function () {
   it('Should not fail on combining characters', async function () {
     let out = await collect_font_data({
       font: [ {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ { range: [ 0x300, 0x300, 0x300 ] } ]
       } ],
       size: 18
@@ -64,10 +69,12 @@ describe('Collect font data', function () {
   it('Should allow specifying same font multiple times', async function () {
     let out = await collect_font_data({
       font: [ {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ { range: [ 0x41, 0x41, 0x41 ] } ]
       }, {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ { range: [ 0x51, 0x51, 0x51 ] } ]
       } ],
       size: 18
@@ -80,7 +87,8 @@ describe('Collect font data', function () {
   it('Should allow multiple ranges', async function () {
     let out = await collect_font_data({
       font: [ {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ { range: [ 0x41, 0x41, 0x41, 0x51, 0x52, 0x51 ] } ]
       } ],
       size: 18
@@ -94,7 +102,8 @@ describe('Collect font data', function () {
   it('Should work with sparse ranges', async function () {
     let out = await collect_font_data({
       font: [ {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ { range: [ 0x3d0, 0x3d8, 0x3d0 ] } ]
       } ],
       size: 10
@@ -110,7 +119,8 @@ describe('Collect font data', function () {
   it('Should read kerning values', async function () {
     let out = await collect_font_data({
       font: [ {
-        source_path: font,
+        source_path,
+        source_bin,
         ranges: [ // AVW
           { range: [ 0x41, 0x41, 1 ] },
           { range: [ 0x56, 0x57, 2 ] }
@@ -145,7 +155,8 @@ describe('Collect font data', function () {
     await assert.rejects(
       collect_font_data({
         font: [ {
-          source_path: font,
+          source_path,
+          source_bin,
           ranges: [ { range: [ 0x3d3, 0x3d5, 0x3d3 ] } ]
         } ],
         size: 18
@@ -159,7 +170,8 @@ describe('Collect font data', function () {
     await assert.rejects(
       collect_font_data({
         font: [ {
-          source_path: font,
+          source_path,
+          source_bin,
           ranges: [ { symbols: '\u03d3\u03d4\u03d5' } ]
         } ],
         size: 18
@@ -174,6 +186,7 @@ describe('Collect font data', function () {
       collect_font_data({
         font: [ {
           source_path: __filename,
+          source_bin: fs.readFileSync(__filename),
           ranges: [ { range: [ 0x20, 0x20, 0x20 ] } ]
         } ],
         size: 18
