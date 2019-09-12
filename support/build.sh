@@ -23,4 +23,7 @@ emcc --bind \
     'getValue',\
     'writeArrayToMemory'\
   ]"\
-  -s MODULARIZE=1
+  -s MODULARIZE=1 \
+  -s NO_FILESYSTEM=1 \
+  -s SINGLE_FILE=1 \
+  -Os
