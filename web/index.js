@@ -82,7 +82,7 @@ document.querySelector('#converterForm').addEventListener('submit', function han
     if (selectedFile && (r_str.length || syms.length)) {
       fonts[fcnt] = {
         source_path: selectedFile.name,
-        source_bin: selectedFile.data,
+        source_bin: Buffer.from(selectedFile.data),
         ranges: [ { range : [], symbols:'' } ] };
       fonts[fcnt].ranges[0].symbols = syms;
       let r_sub = r_str.split(',');
