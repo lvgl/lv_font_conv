@@ -10,6 +10,6 @@ RUN cd freetype-2.10.1 && \
     gcc -o objs/apinames src/tools/apinames.c && \
     mv ./modules.cfg ./modules.cfg.orig && \
     grep -v -E "+= type1|+= cff|+= cid|+= pfr|+= type42|+= winfonts|+= pcf|+= bdf|+= pshinter|+= cache|+= gxvalid|+= lzw|+= bzip2|+= otvalid|+= psaux" modules.cfg.orig > modules.cfg && \
-    emconfigure ./configure CFLAGS='-Os -D FT_CONFIG_OPTION_SYSTEM_ZLIB=1 -s USE_ZLIB=1' && \
+    emconfigure ./configure CFLAGS='-Os -D FT_CONFIG_OPTION_SYSTEM_ZLIB -s USE_ZLIB=1 -DFT_CONFIG_OPTION_DISABLE_STREAM_SUPPORT' && \
     emmake make && \
     emmake make install
