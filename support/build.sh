@@ -5,6 +5,7 @@ mkdir -p /src/lv_font_conv/lib/freetype/build
 emcc --bind \
   -o /src/lv_font_conv/lib/freetype/build/ft_render.js \
   /src/lv_font_conv/lib/freetype/render.c \
+  -s USE_ZLIB=1 \
   -L/usr/local/lib -lfreetype -I/usr/local/include/freetype2 \
   -s "EXPORTED_FUNCTIONS=[\
     '_FT_Init_FreeType',\
