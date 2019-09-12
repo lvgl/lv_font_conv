@@ -29,12 +29,12 @@ function handleFiles() {
 }
 
 
-function createCanvas(width, height) {
+/*function createCanvas(width, height) {
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   return canvas;
-}
+}*/
 
 function addFontFileChangeHandlers() {
   $('.font_file').off('change', handleFiles);
@@ -116,7 +116,7 @@ document.querySelector('#converterForm').addEventListener('submit', function han
     no_prefilter : true,
     format: 'lvgl',
     output: _name
-  }, createCanvas).then(result => {
+  }/*, createCanvas*/).then(result => {
     const blob = new Blob([ result[_name] ], { type: 'text/plain;charset=utf-8' });
 
     FileSaver.saveAs(blob, _name + '.c');
