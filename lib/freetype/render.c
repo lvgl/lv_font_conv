@@ -31,6 +31,7 @@ void init_constants()
   set_js_variable("OFFSET_GLYPH_BITMAP_TOP",       offsetof(FT_GlyphSlotRec, bitmap_top));
   set_js_variable("OFFSET_GLYPH_BITMAP_WIDTH",     offsetof(FT_GlyphSlotRec, bitmap.width));
   set_js_variable("OFFSET_GLYPH_BITMAP_ROWS",      offsetof(FT_GlyphSlotRec, bitmap.rows));
+  set_js_variable("OFFSET_GLYPH_BITMAP_PITCH",     offsetof(FT_GlyphSlotRec, bitmap.pitch));
   set_js_variable("OFFSET_GLYPH_BITMAP_ADVANCE_X", offsetof(FT_GlyphSlotRec, advance.x));
   set_js_variable("OFFSET_GLYPH_BITMAP_ADVANCE_Y", offsetof(FT_GlyphSlotRec, advance.y));
   set_js_variable("OFFSET_GLYPH_BITMAP_BUFFER",    offsetof(FT_GlyphSlotRec, bitmap.buffer));
