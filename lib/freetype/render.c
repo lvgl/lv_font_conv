@@ -22,6 +22,10 @@ void init_constants()
   set_js_variable("FT_RENDER_MODE_NORMAL",         FT_RENDER_MODE_NORMAL);
   set_js_variable("FT_RENDER_MODE_MONO",           FT_RENDER_MODE_MONO);
 
+  set_js_variable("FT_KERNING_DEFAULT",            FT_KERNING_DEFAULT);
+  set_js_variable("FT_KERNING_UNFITTED",           FT_KERNING_UNFITTED);
+  set_js_variable("FT_KERNING_UNSCALED",           FT_KERNING_UNSCALED);
+
   set_js_variable("OFFSET_FACE_GLYPH",             offsetof(FT_FaceRec, glyph));
   set_js_variable("OFFSET_GLYPH_BITMAP_LEFT",      offsetof(FT_GlyphSlotRec, bitmap_left));
   set_js_variable("OFFSET_GLYPH_BITMAP_TOP",       offsetof(FT_GlyphSlotRec, bitmap_top));

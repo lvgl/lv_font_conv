@@ -17,10 +17,12 @@ emcc --bind \
     '_FT_Get_Char_Index',\
     '_FT_Load_Glyph',\
     '_FT_Render_Glyph',\
+    '_FT_Get_Kerning',\
     '_init_constants'\
   ]"\
   -s "EXTRA_EXPORTED_RUNTIME_METHODS=[\
     'ccall',\
+    'cwrap',\
     'getValue',\
     'writeArrayToMemory'\
   ]"\
