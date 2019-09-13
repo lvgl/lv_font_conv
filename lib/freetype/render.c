@@ -20,6 +20,10 @@ void init_constants()
   set_js_variable("FT_LOAD_MONOCHROME",            FT_LOAD_MONOCHROME);
   set_js_variable("FT_LOAD_NO_AUTOHINT",           FT_LOAD_NO_AUTOHINT);
 
+  set_js_variable("FT_LOAD_TARGET_NORMAL",         FT_LOAD_TARGET_NORMAL);
+  set_js_variable("FT_LOAD_TARGET_LIGHT",          FT_LOAD_TARGET_LIGHT);
+  set_js_variable("FT_LOAD_TARGET_MONO",           FT_LOAD_TARGET_MONO);
+
   set_js_variable("FT_RENDER_MODE_NORMAL",         FT_RENDER_MODE_NORMAL);
   set_js_variable("FT_RENDER_MODE_MONO",           FT_RENDER_MODE_MONO);
 
