@@ -1,4 +1,4 @@
-FROM trzeci/emscripten
+FROM trzeci/emscripten:sdk-tag-1.38.43-64bit
 
 RUN wget https://sourceforge.net/projects/freetype/files/freetype2/2.10.1/freetype-2.10.1.tar.xz && \
     tar xf freetype-2.10.1.tar.xz
