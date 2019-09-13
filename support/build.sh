@@ -18,6 +18,7 @@ emcc --bind \
     '_FT_Load_Glyph',\
     '_FT_Render_Glyph',\
     '_FT_Get_Kerning',\
+    '_FT_Get_Sfnt_Table',\
     '_init_constants'\
   ]"\
   -s "EXTRA_EXPORTED_RUNTIME_METHODS=[\

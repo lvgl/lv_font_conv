@@ -1,6 +1,7 @@
 #include <emscripten.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include FT_TRUETYPE_TABLES_H
 
 static void set_js_variable(char* name, int value) {
   char buffer[strlen(name) + 32];
@@ -26,7 +27,14 @@ void init_constants()
   set_js_variable("FT_KERNING_UNFITTED",           FT_KERNING_UNFITTED);
   set_js_variable("FT_KERNING_UNSCALED",           FT_KERNING_UNSCALED);
 
+  set_js_variable("FT_SFNT_OS2",                   FT_SFNT_OS2);
+
   set_js_variable("OFFSET_FACE_GLYPH",             offsetof(FT_FaceRec, glyph));
+  set_js_variable("OFFSET_FACE_UNITS_PER_EM",      offsetof(FT_FaceRec, units_per_EM));
+  set_js_variable("OFFSET_FACE_ASCENDER",          offsetof(FT_FaceRec, ascender));
+  set_js_variable("OFFSET_FACE_DESCENDER",         offsetof(FT_FaceRec, descender));
+  set_js_variable("OFFSET_FACE_HEIGHT",            offsetof(FT_FaceRec, height));
+
   set_js_variable("OFFSET_GLYPH_BITMAP_LEFT",      offsetof(FT_GlyphSlotRec, bitmap_left));
   set_js_variable("OFFSET_GLYPH_BITMAP_TOP",       offsetof(FT_GlyphSlotRec, bitmap_top));
   set_js_variable("OFFSET_GLYPH_BITMAP_WIDTH",     offsetof(FT_GlyphSlotRec, bitmap.width));
@@ -35,4 +43,8 @@ void init_constants()
   set_js_variable("OFFSET_GLYPH_BITMAP_ADVANCE_X", offsetof(FT_GlyphSlotRec, advance.x));
   set_js_variable("OFFSET_GLYPH_BITMAP_ADVANCE_Y", offsetof(FT_GlyphSlotRec, advance.y));
   set_js_variable("OFFSET_GLYPH_BITMAP_BUFFER",    offsetof(FT_GlyphSlotRec, bitmap.buffer));
+
+  set_js_variable("OFFSET_TT_OS2_ASCENDER",        offsetof(TT_OS2, sTypoAscender));
+  set_js_variable("OFFSET_TT_OS2_DESCENDER",       offsetof(TT_OS2, sTypoDescender));
+  set_js_variable("OFFSET_TT_OS2_LINEGAP",         offsetof(TT_OS2, sTypoLineGap));
 }
