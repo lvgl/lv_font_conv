@@ -66,7 +66,9 @@ Per font:
   - `-r 0x1F450 -r 0x1F451-0x1F470` - 2 ranges.
   - `-r 0x1F450,0x1F451-0x1F470` - the same as above, but defined with single `-r`.
 - `--symbols` - list of characters to copy (instead of numeric format in `-r`).
-  - `--symbols 0123456789.,` - extract chars to display numbers
+  - `--symbols 0123456789.,` - extract chars to display numbers.
+- `--autohint-off` - do not force autohinting ("light" is on by default).
+- `--autohint-strong` - use more strong autohinting (will break kerning).
 
 Additional debug options:
 
