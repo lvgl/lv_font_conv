@@ -38,6 +38,7 @@ npx github:littlevgl/lv_font_conv -h
 
 Note, runing via `npx` may take some time until modules installed, be patient.
 
+
 ## CLI params
 
 Common:
@@ -117,3 +118,23 @@ will follow principles below:
    used from the first font in list.
 4. `hhea`  metrics (`ascender`, `descender`), defined as max/min point of all
    font glyphs, are recalculated, according to new glyphs set.
+
+
+## Development
+
+Current package includes WebAssembly build of FreeType with some helper
+functions. Everything is wrapped into Docker and requires zero knowledge about
+additional tools install. See `package.json` for additional commands. You may
+need those if decide to upgrade FreeType or update helpers.
+
+This builds image with emscripten & freetype, usually should be done only once:
+
+```
+npm run build:dockerimage
+```
+
+This compiles helpers and creates WebAssembly files:
+
+```
+npm run build:freetype
+```
