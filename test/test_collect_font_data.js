@@ -3,13 +3,7 @@
 
 const assert            = require('assert');
 const collect_font_data = require('../lib/collect_font_data');
-//const canvas            = require('canvas');
 const fs                = require('fs');
-
-
-/*function createCanvas(w, h) {
-  return canvas.createCanvas(w, h);
-}*/
 
 
 const source_path = require.resolve('roboto-fontface/fonts/roboto/Roboto-Black.woff');
@@ -26,7 +20,7 @@ describe('Collect font data', function () {
         ranges: [ { range: [ 0x41, 0x42, 0x80 ] } ]
       } ],
       size: 18
-    }/*, createCanvas*/);
+    });
 
     assert.equal(out.glyphs.length, 2);
     assert.equal(out.glyphs[0].code, 0x80);
@@ -42,7 +36,7 @@ describe('Collect font data', function () {
         ranges: [ { symbols: 'AB' } ]
       } ],
       size: 18
-    }/*, createCanvas*/);
+    });
 
     assert.equal(out.glyphs.length, 2);
     assert.equal(out.glyphs[0].code, 0x41);
@@ -58,7 +52,7 @@ describe('Collect font data', function () {
         ranges: [ { range: [ 0x300, 0x300, 0x300 ] } ]
       } ],
       size: 18
-    }/*, createCanvas*/);
+    });
 
     assert.equal(out.glyphs.length, 1);
     assert.equal(out.glyphs[0].code, 0x300);
@@ -78,7 +72,7 @@ describe('Collect font data', function () {
         ranges: [ { range: [ 0x51, 0x51, 0x51 ] } ]
       } ],
       size: 18
-    }/*, createCanvas*/);
+    });
 
     assert.equal(out.glyphs.length, 2);
   });
@@ -92,7 +86,7 @@ describe('Collect font data', function () {
         ranges: [ { range: [ 0x41, 0x41, 0x41, 0x51, 0x52, 0x51 ] } ]
       } ],
       size: 18
-    }/*, createCanvas*/);
+    });
 
     assert.equal(out.glyphs.length, 3);
   });
@@ -107,7 +101,7 @@ describe('Collect font data', function () {
         ranges: [ { range: [ 0x3d0, 0x3d8, 0x3d0 ] } ]
       } ],
       size: 10
-    }/*, createCanvas*/);
+    });
 
     assert.equal(out.glyphs.length, 3);
     assert.equal(out.glyphs[0].code, 0x3d1);
@@ -127,7 +121,7 @@ describe('Collect font data', function () {
         ]
       } ],
       size: 18
-    }/*, createCanvas*/);
+    });
 
     assert.equal(out.glyphs.length, 3);
 
@@ -160,7 +154,7 @@ describe('Collect font data', function () {
           ranges: [ { range: [ 0x3d3, 0x3d5, 0x3d3 ] } ]
         } ],
         size: 18
-      }/*, createCanvas*/),
+      }),
       /doesn't have any characters/
     );
   });
@@ -175,7 +169,7 @@ describe('Collect font data', function () {
           ranges: [ { symbols: '\u03d3\u03d4\u03d5' } ]
         } ],
         size: 18
-      }/*, createCanvas*/),
+      }),
       /doesn't have any characters/
     );
   });
@@ -190,7 +184,7 @@ describe('Collect font data', function () {
           ranges: [ { range: [ 0x20, 0x20, 0x20 ] } ]
         } ],
         size: 18
-      }/*, createCanvas*/),
+      }),
       /Cannot load font.*(Unknown|Unsupported)/
     );
   });
