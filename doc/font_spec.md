@@ -18,6 +18,7 @@ but simplified for bitmap fonts:
 - No vertical fonts.
 - No ligatures.
 
+All multi-byte numbers are stored in LE (little-endian) order.
 
 ## Table: `head` (font header)
 
