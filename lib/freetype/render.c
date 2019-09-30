@@ -23,9 +23,13 @@ void init_constants()
   set_js_variable("FT_LOAD_TARGET_NORMAL",         FT_LOAD_TARGET_NORMAL);
   set_js_variable("FT_LOAD_TARGET_LIGHT",          FT_LOAD_TARGET_LIGHT);
   set_js_variable("FT_LOAD_TARGET_MONO",           FT_LOAD_TARGET_MONO);
+  set_js_variable("FT_LOAD_TARGET_LCD",            FT_LOAD_TARGET_LCD);
+  set_js_variable("FT_LOAD_TARGET_LCD_V",          FT_LOAD_TARGET_LCD_V);
 
   set_js_variable("FT_RENDER_MODE_NORMAL",         FT_RENDER_MODE_NORMAL);
   set_js_variable("FT_RENDER_MODE_MONO",           FT_RENDER_MODE_MONO);
+  set_js_variable("FT_RENDER_MODE_LCD",            FT_RENDER_MODE_LCD);
+  set_js_variable("FT_RENDER_MODE_LCD_V",          FT_RENDER_MODE_LCD_V);
 
   set_js_variable("FT_KERNING_DEFAULT",            FT_KERNING_DEFAULT);
   set_js_variable("FT_KERNING_UNFITTED",           FT_KERNING_UNFITTED);
