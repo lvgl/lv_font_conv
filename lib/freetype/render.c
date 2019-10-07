@@ -43,14 +43,32 @@ void init_constants()
   set_js_variable("OFFSET_FACE_DESCENDER",         offsetof(FT_FaceRec, descender));
   set_js_variable("OFFSET_FACE_HEIGHT",            offsetof(FT_FaceRec, height));
 
-  set_js_variable("OFFSET_GLYPH_BITMAP_LEFT",      offsetof(FT_GlyphSlotRec, bitmap_left));
-  set_js_variable("OFFSET_GLYPH_BITMAP_TOP",       offsetof(FT_GlyphSlotRec, bitmap_top));
-  set_js_variable("OFFSET_GLYPH_BITMAP_WIDTH",     offsetof(FT_GlyphSlotRec, bitmap.width));
-  set_js_variable("OFFSET_GLYPH_BITMAP_ROWS",      offsetof(FT_GlyphSlotRec, bitmap.rows));
-  set_js_variable("OFFSET_GLYPH_BITMAP_PITCH",     offsetof(FT_GlyphSlotRec, bitmap.pitch));
-  set_js_variable("OFFSET_GLYPH_BITMAP_ADVANCE_X", offsetof(FT_GlyphSlotRec, advance.x));
-  set_js_variable("OFFSET_GLYPH_BITMAP_ADVANCE_Y", offsetof(FT_GlyphSlotRec, advance.y));
-  set_js_variable("OFFSET_GLYPH_BITMAP_BUFFER",    offsetof(FT_GlyphSlotRec, bitmap.buffer));
+  set_js_variable("OFFSET_GLYPH_BITMAP_WIDTH",        offsetof(FT_GlyphSlotRec, bitmap.width));
+  set_js_variable("OFFSET_GLYPH_BITMAP_ROWS",         offsetof(FT_GlyphSlotRec, bitmap.rows));
+  set_js_variable("OFFSET_GLYPH_BITMAP_PITCH",        offsetof(FT_GlyphSlotRec, bitmap.pitch));
+  set_js_variable("OFFSET_GLYPH_BITMAP_BUFFER",       offsetof(FT_GlyphSlotRec, bitmap.buffer));
+  set_js_variable("OFFSET_GLYPH_BITMAP_NUM_GRAYS",    offsetof(FT_GlyphSlotRec, bitmap.num_grays));
+  set_js_variable("OFFSET_GLYPH_BITMAP_PIXEL_MODE",   offsetof(FT_GlyphSlotRec, bitmap.pixel_mode));
+  set_js_variable("OFFSET_GLYPH_BITMAP_PALETTE_MODE", offsetof(FT_GlyphSlotRec, bitmap.palette_mode));
+
+  set_js_variable("OFFSET_GLYPH_METRICS_WIDTH",          offsetof(FT_GlyphSlotRec, metrics.width));
+  set_js_variable("OFFSET_GLYPH_METRICS_HEIGHT",         offsetof(FT_GlyphSlotRec, metrics.height));
+  set_js_variable("OFFSET_GLYPH_METRICS_HORI_BEARING_X", offsetof(FT_GlyphSlotRec, metrics.horiBearingX));
+  set_js_variable("OFFSET_GLYPH_METRICS_HORI_BEARING_Y", offsetof(FT_GlyphSlotRec, metrics.horiBearingY));
+  set_js_variable("OFFSET_GLYPH_METRICS_HORI_ADVANCE",   offsetof(FT_GlyphSlotRec, metrics.horiAdvance));
+  set_js_variable("OFFSET_GLYPH_METRICS_VERT_BEARING_X", offsetof(FT_GlyphSlotRec, metrics.vertBearingX));
+  set_js_variable("OFFSET_GLYPH_METRICS_VERT_BEARING_Y", offsetof(FT_GlyphSlotRec, metrics.vertBearingY));
+  set_js_variable("OFFSET_GLYPH_METRICS_VERT_ADVANCE",   offsetof(FT_GlyphSlotRec, metrics.vertAdvance));
+
+  set_js_variable("OFFSET_GLYPH_BITMAP_LEFT",            offsetof(FT_GlyphSlotRec, bitmap_left));
+  set_js_variable("OFFSET_GLYPH_BITMAP_TOP",             offsetof(FT_GlyphSlotRec, bitmap_top));
+  set_js_variable("OFFSET_GLYPH_INDEX",                  offsetof(FT_GlyphSlotRec, glyph_index));
+  set_js_variable("OFFSET_GLYPH_LINEAR_HORI_ADVANCE",    offsetof(FT_GlyphSlotRec, linearHoriAdvance));
+  set_js_variable("OFFSET_GLYPH_LINEAR_VERT_ADVANCE",    offsetof(FT_GlyphSlotRec, linearVertAdvance));
+  set_js_variable("OFFSET_GLYPH_ADVANCE_X",              offsetof(FT_GlyphSlotRec, advance.x));
+  set_js_variable("OFFSET_GLYPH_ADVANCE_Y",              offsetof(FT_GlyphSlotRec, advance.y));
+  set_js_variable("OFFSET_GLYPH_LSB_DELTA",              offsetof(FT_GlyphSlotRec, lsb_delta));
+  set_js_variable("OFFSET_GLYPH_RSB_DELTA",              offsetof(FT_GlyphSlotRec, rsb_delta));
 
   set_js_variable("OFFSET_TT_OS2_ASCENDER",        offsetof(TT_OS2, sTypoAscender));
   set_js_variable("OFFSET_TT_OS2_DESCENDER",       offsetof(TT_OS2, sTypoDescender));
