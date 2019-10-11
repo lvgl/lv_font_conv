@@ -1,10 +1,12 @@
-0.3.0 / WIP
+0.3.0 / 2019-10-12
 ------------------
 
-- Added options `--lcd` & `--lcd-v` for subpixel rendering.
+- Added beta options `--lcd` & `--lcd-v` for subpixel rendering (still need
+  header info update).
 - Added FreeType data properties to dump info.
-- Fixed glyph width (missed fractional part after switch to FreeType)
+- Fixed glyph width (missed fractional part after switch to FreeType).
 - Fixed missed sigh for negative X/Y bitmap offsets.
+- Deps bump.
 
 
 0.2.0 / 2019-09-26
