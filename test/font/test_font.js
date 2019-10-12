@@ -62,6 +62,8 @@ describe('Font', function () {
     assert.equal(bin.readUInt8(40), 8); // advanceWidth bits (FP4.4)
 
     assert.equal(bin.readUInt8(41), 1); // compression id
+
+    assert.equal(bin.readUInt8(42), 0); // no subpixels
   });
 
 
