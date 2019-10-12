@@ -205,6 +205,10 @@ NN | BBox Width (see length in font header)
 NN | BBox Height (see length in font header)
 ?? | Compressed bitmap
 
+If bitmaps are generated for subpixel rendering, then BBox Width or BBox Height
+value will be 3x more than "normal" one. They always contain real size of
+content, not rendered size.
+
 
 ## Table `kern`
 

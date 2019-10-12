@@ -52,6 +52,10 @@ Common:
   - `--format lvgl` - dump font in [LittlevGL](https://github.com/littlevgl/lvgl) format.
 - `--force-fast-kern-format` - always use more fast kering storage format,
   at cost of some size. If size difference appears, it will be displayed.
+- `--lcd` - generate bitmaps with 3x horizontal resolution, for subpixel
+  smoothing.
+- `--lcd-v` - generate bitmaps with 3x vertical resolution, for subpixel
+  smoothing.
 
 Per font:
 

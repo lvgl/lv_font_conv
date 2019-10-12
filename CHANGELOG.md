@@ -1,3 +1,15 @@
+0.4.0 / WIP
+------------------
+
+- Note, this release has potentially breaking changes (see below).
+  If you have compatibility issues - use previous versions or update your
+  code.
+- Spec change: added subpixels info field to font header (header size increased).
+- Updated `bin` & `lvgl` writers to match new spec.
+- lvgl: fixed data type for kerning values (needs appropriate update
+  in LittlevGL 6.1+).
+
+
 0.3.0 / 2019-10-12
 ------------------
 
