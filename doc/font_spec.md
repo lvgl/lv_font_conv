@@ -50,6 +50,8 @@ Size (bytes) | Description
 1 | Glyph BBox w/h bits length (unsigned)
 1 | Glyph advanceWidth bits length (unsigned, may be FP4)
 1 | Compression alg ID (0 - raw bits, 1 - RLE-like with XOR prefilter, 2 - RLE-like only without prefilter)
+1 | Subpixel rendering. `0` - none, `1` - horisontal resolution of bitmaps is 3x, `2` - vertical resolution of bitmaps is 3x.
+3 | Unused (Align header length to 4x)
 
 Note, `Ascent + abs(Descent)` may be NOT equal to font size.
 
