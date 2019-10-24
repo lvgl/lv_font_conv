@@ -8,6 +8,13 @@
 - Updated `bin` & `lvgl` writers to match new spec.
 - lvgl: fixed data type for kerning values (needs appropriate update
   in LittlevGL 6.1+).
+- Fix errors display (disable emscripten error catcher).
+
+
+0.3.1 / 2019-10-24
+------------------
+
+- Fixed "out of range" error for big `--size`.
 
 
 0.3.0 / 2019-10-12
