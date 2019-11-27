@@ -1,9 +1,9 @@
-0.4.0 / WIP
+0.4.0 / 2019-11-29
 ------------------
 
-- Note, this release has potentially breaking changes (see below).
-  If you have compatibility issues - use previous versions or update your
-  code.
+- Note, this release is for lvgl 6.1 and has potentially breaking changes
+  (see below). If you have compatibility issues with lvgl 6.0 - use previous
+  versions or update your code.
 - Spec change: added subpixels info field to font header (header size increased).
 - Updated `bin` & `lvgl` writers to match new spec.
 - lvgl: fixed data type for kerning values (needs appropriate update
