@@ -101,15 +101,19 @@ document.querySelector('#converterForm').addEventListener('submit', function han
 
   const AppError = require('../lib/app_error');
 
-  convert({
+  const args = {
     font: fonts,
     size: parseInt(_size, 10),
     bpp: parseInt(_bpp, 10),
-    no_compress : true,
+    no_compress : !(document.getElementById('compression').checked),
+    lcd: document.getElementById('subpixel2').checked,
+    lcd_v: document.getElementById('subpixel3').checked,
     no_prefilter : true,
     format: 'lvgl',
     output: _name
-  }).then(result => {
+  };
+  console.log(args);
+  convert(args).then(result => {
     const blob = new Blob([ result[_name] ], { type: 'text/plain;charset=utf-8' });
 
     FileSaver.saveAs(blob, _name + '.c');
