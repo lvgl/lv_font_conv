@@ -32,4 +32,5 @@ emcc --bind \
   -s SINGLE_FILE=1 \
   -s NODEJS_CATCH_EXIT=0 \
   -s NODEJS_CATCH_REJECTION=0 \
+  -s ALLOW_MEMORY_GROWTH=1 \
   -Os
