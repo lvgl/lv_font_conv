@@ -1,3 +1,11 @@
+0.4.1 / 2019-12-09
+------------------
+
+- Allow memory growth for FreeType build, #29.
+- Dev deps bump.
+- Web build update.
+
+
 0.4.0 / 2019-11-29
 ------------------
 
