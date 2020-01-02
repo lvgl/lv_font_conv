@@ -1,6 +1,7 @@
 0.4.1 / WIP
 ------------------
 
+- Added `--lv_include` option to set alternate `lvgl.h` path.
 - Dev deps bump
 
 

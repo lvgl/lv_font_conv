@@ -56,6 +56,7 @@ Common:
   smoothing.
 - `--lcd-v` - generate bitmaps with 3x vertical resolution, for subpixel
   smoothing.
+- `--lv-include` - only with `--format lvgl`, set alternate path for `lvgl.h`.
 
 Per font:
 
