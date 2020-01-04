@@ -1,4 +1,4 @@
-0.4.2 / WIP
+0.4.2 / 2020-01-05
 ------------------
 
 - Added `--lv_include` option to set alternate `lvgl.h` path.
