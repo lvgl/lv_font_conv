@@ -1,7 +1,8 @@
-0.4.1 / WIP
+0.4.2 / WIP
 ------------------
 
 - Added `--lv_include` option to set alternate `lvgl.h` path.
+- Added guards to hide `.subpx` property for lvgl 6.0 (supported from 6.1 only), #32.
 - Dev deps bump
 
 
