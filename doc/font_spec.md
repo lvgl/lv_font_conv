@@ -298,7 +298,7 @@ spec.
 
 Glyph data uses modified RLE compression - [I3BN](https://thesai.org/Downloads/Volume7No7/Paper_34-New_modified_RLE_algorithms.pdf), with prefilter and tuned options.
 
-Everything works with "pixels" (groups of 2, 3 or 4 bits). That will not work
+Everything works with "pixels" (groups of 2, 3, 4 or 8 bits). That will not work
 for bitonal fonts, but those are small enougth.
 
 Notable compression gain starts with ~30px sizes. That's explained by 2 moments:
