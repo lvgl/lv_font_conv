@@ -1,6 +1,6 @@
 {
   "name": "lv_font_conv",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Rasterize vector fonts for embedded use. Supports subsettings & merge.",
   "keywords": [
     "font",
