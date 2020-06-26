@@ -1,3 +1,11 @@
+1.0.0 / 2020-06-26
+------------------
+
+- Maintenance release.
+- Set package version 1.x, to label package as stable.
+- Deps bump.
+
+
 0.4.3 / 2020-03-05
 ------------------
 
