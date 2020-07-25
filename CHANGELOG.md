@@ -1,3 +1,9 @@
+1.1.0 / WIP
+------------------
+
+- Added `post.underlinePosition` & `post.underlineThickness` info to font header.
+
+
 1.0.0 / 2020-06-26
 ------------------
 
