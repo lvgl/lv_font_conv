@@ -5,6 +5,10 @@ env:
 parserOptions:
   ecmaVersion: '2018'
 
+ignorePatterns:
+  - dist
+  - lib/freetype/build
+
 rules:
   accessor-pairs:         2
   array-bracket-spacing:  [ 2, "always", { "singleValue": true, "objectsInArrays": true, "arraysInArrays": true } ]
