@@ -5,12 +5,13 @@
 const AppError = require('./lib/app_error');
 
 require('./lib/cli').run(process.argv.slice(2)).catch(err => {
-  // Try to beautify normal errors
+  /*eslint-disable no-console*/
   if (err instanceof AppError) {
-    /*eslint-disable no-console*/
+    // Try to beautify normal errors
     console.error(err.message.trim());
-    process.exit(1);
+  } else {
+    // Print crashes
+    console.error(err.stack);
   }
-  // rethrow crashes
-  throw err;
+  process.exit(1);
 });

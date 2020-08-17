@@ -26,7 +26,7 @@
     "coverage": "npm run test && nyc report --reporter html"
   },
   "dependencies": {
-    "argparse": "^1.0.10",
+    "argparse": "^2.0.0",
     "bit-buffer": "^0.2.4",
     "debug": "^4.1.1",
     "lodash": "^4.17.20",

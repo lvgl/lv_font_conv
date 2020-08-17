@@ -33,7 +33,7 @@ describe('Cli', function () {
   it('Should print error if range is invalid', async function () {
     await assert.rejects(
       run('--font test --range invalid'.split(' '), true),
-      /Invalid range value/
+      /argument -r\/--range: invalid range value: 'invalid'/
     );
   });
 
@@ -49,7 +49,7 @@ describe('Cli', function () {
   it('Should print error if size is invalid', async function () {
     await assert.rejects(
       run('--size 10xxx'.split(' '), true),
-      /Invalid int value/
+      /argument --size: invalid positive_int value: '10xxx'/
     );
   });
 
@@ -57,7 +57,7 @@ describe('Cli', function () {
   it('Should print error if size is zero', async function () {
     await assert.rejects(
       run('--size 0'.split(' '), true),
-      /Invalid int value/
+      /argument --size: invalid positive_int value: '0'/
     );
   });
 
