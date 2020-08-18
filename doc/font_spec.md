@@ -30,7 +30,7 @@ Size (bytes) | Description
 -------------|------------
 4 | Record size (for quick skip)
 4 | `head` (table marker)
-2 | Version (reserved)
+4 | Version (reserved)
 2 | Number of additional tables (2 bytes to simplify align)
 2 | Font size (px), as defined in convertor params
 2 | Ascent (uint16), as returned by `Font.ascender` of `opentype.js` (usually HHead ascent)
