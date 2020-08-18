@@ -46,7 +46,7 @@ Size (bytes) | Description
 1 | glyphIdFormat (`0` - 1 byte, `1` - 2 bytes)
 1 | advanceWidthFormat (`0` - Uint, `1` - unsigned with 4 bits fractional part)
 1 | Bits per pixel (1, 2, 3 or 4)
-1 | Glyph BBox x/y bits length (signed value)
+1 | Glyph BBox x/y bits length (unsigned)
 1 | Glyph BBox w/h bits length (unsigned)
 1 | Glyph advanceWidth bits length (unsigned, may be FP4)
 1 | Compression alg ID (0 - raw bits, 1 - RLE-like with XOR prefilter, 2 - RLE-like only without prefilter)
