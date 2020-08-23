@@ -1,4 +1,14 @@
-1.1.1 / 2020-09-01
+1.1.2 / 2020-08-23
+------------------
+
+- Fix: skip `glyph.advanceWidth` for monospace fonts, #43.
+- Spec fix: version size should be 4 bytes, #44.
+- Spec fix: bbox x/y bits => unsigned, #45.
+- Bump argparse.
+- Cleanup help formatter.
+
+
+1.1.1 / 2020-08-01
 ------------------
 
 - `--version` should show number from `package.json`.
