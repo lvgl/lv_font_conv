@@ -1,3 +1,9 @@
+1.1.3 / 2020-09-22
+------------------
+
+- lvgl: added `LV_FONT_FMT_TXT_LARGE` check or very large fonts.
+
+
 1.1.2 / 2020-08-23
 ------------------
 
