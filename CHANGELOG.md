@@ -1,7 +1,13 @@
+1.2.1 / 2020-10-24
+------------------
+
+- Reduced npm package size (drop unneeded files before publish).
+
+
 1.2.0 / 2020-10-24
 ------------------
 
-- Bump FreeTpe to 2.10.4.
+- Bump FreeType to 2.10.4.
 - Bundle dependencies to npm package.
 
 
