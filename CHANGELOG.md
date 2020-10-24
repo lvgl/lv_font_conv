@@ -1,6 +1,7 @@
 1.2.1 / WIP
 ------------------
 
+- Drop `lodash` use.
 - Deps bump.
 
 
