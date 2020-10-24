@@ -1,3 +1,10 @@
+1.2.0 / 2020-10-24
+------------------
+
+- Bump FreeTpe to 2.10.4.
+- Bundle dependencies to npm package.
+
+
 1.1.3 / 2020-09-22
 ------------------
 
