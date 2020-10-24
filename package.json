@@ -35,6 +35,16 @@
     "opentype.js": "^1.1.0",
     "pngjs": "^5.0.0"
   },
+  "bundledDependencies": [
+    "argparse",
+    "bit-buffer",
+    "debug",
+    "lodash",
+    "make-error",
+    "mkdirp",
+    "opentype.js",
+    "pngjs"
+  ],
   "devDependencies": {
     "eslint": "^7.7.0",
     "file-saver": "^2.0.2",
