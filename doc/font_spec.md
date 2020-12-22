@@ -336,8 +336,8 @@ font sizes & bpp. Those don't affect result too much (only 1-2%).
 
 Also see:
 
-- [Compressor sources](https://github.com/littlevgl/lv_font_conv/blob/master/lib/font/compress.js).
-- [Compressor tests](https://github.com/littlevgl/lv_font_conv/blob/master/test/font/test_compress.js).
+- [Compressor sources](https://github.com/lvgl/lv_font_conv/blob/master/lib/font/compress.js).
+- [Compressor tests](https://github.com/lvgl/lv_font_conv/blob/master/test/font/test_compress.js).
 
 ### Decompression
 

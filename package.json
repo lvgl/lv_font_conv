@@ -7,7 +7,7 @@
     "convertor",
     "embedded"
   ],
-  "repository": "littlevgl/lv_font_conv",
+  "repository": "lvgl/lv_font_conv",
   "license": "MIT",
   "files": [
     "lv_font_conv.js",
