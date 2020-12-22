@@ -2,6 +2,8 @@
 ------------------
 
 - Unify `lvgl.h` include.
+- Updated repo refs (littlevgl => lvgl).
+- Deps bump.
 
 
 1.3.0 / 2020-10-25
