@@ -1,7 +1,7 @@
 lv_font_conv - font convertor to compact bitmap format
 ======================================================
 
-[![Build Status](https://travis-ci.org/lvgl/lv_font_conv.svg?branch=master)](https://travis-ci.org/lvgl/lv_font_conv)
+[![CI](https://github.com/lvgl/lv_font_conv/workflows/CI/badge.svg?branch=master)](https://github.com/lvgl/lv_font_conv/actions)
 [![NPM version](https://img.shields.io/npm/v/lv_font_conv.svg?style=flat)](https://www.npmjs.org/package/lv_font_conv)
 
 Converts TTF/WOFF fonts to __[compact format](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md)__, suitable for small embedded systems. Main features are:
