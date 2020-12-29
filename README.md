@@ -56,6 +56,9 @@ Common:
   smoothing.
 - `--lcd-v` - generate bitmaps with 3x vertical resolution, for subpixel
   smoothing.
+- `--use-color-info` - try to use glyph color info from font to create
+  grayscale icons. Since gray tones are emulated via transparency, result
+  will be good on contrast background only.
 - `--lv-include` - only with `--format lvgl`, set alternate path for `lvgl.h`.
 
 Per font:
