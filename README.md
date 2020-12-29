@@ -4,7 +4,7 @@ lv_font_conv - font convertor to compact bitmap format
 [![CI](https://github.com/lvgl/lv_font_conv/workflows/CI/badge.svg?branch=master)](https://github.com/lvgl/lv_font_conv/actions)
 [![NPM version](https://img.shields.io/npm/v/lv_font_conv.svg?style=flat)](https://www.npmjs.org/package/lv_font_conv)
 
-Converts TTF/WOFF fonts to __[compact format](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md)__, suitable for small embedded systems. Main features are:
+Converts TTF/WOFF/OTF fonts to __[compact format](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md)__, suitable for small embedded systems. Main features are:
 
 - Allows bitonal and anti-aliased glyphs (1-4 bits per pixel).
 - Preserves kerning info.
@@ -63,7 +63,7 @@ Common:
 
 Per font:
 
-- `--font` - path to font file (ttf/woff/woff2). May be used multiple time for
+- `--font` - path to font file (ttf/woff/woff2/otf). May be used multiple time for
   merge.
 - `-r`, `--range` - single glyph or range + optional mapping, belongs to
   previously declared `--font`. Can be used multiple times. Examples:
