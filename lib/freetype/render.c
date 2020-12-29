@@ -19,6 +19,7 @@ void init_constants()
   set_js_variable("FT_LOAD_PEDANTIC",              FT_LOAD_PEDANTIC);
   set_js_variable("FT_LOAD_MONOCHROME",            FT_LOAD_MONOCHROME);
   set_js_variable("FT_LOAD_NO_AUTOHINT",           FT_LOAD_NO_AUTOHINT);
+  set_js_variable("FT_LOAD_COLOR",                 FT_LOAD_COLOR);
 
   set_js_variable("FT_LOAD_TARGET_NORMAL",         FT_LOAD_TARGET_NORMAL);
   set_js_variable("FT_LOAD_TARGET_LIGHT",          FT_LOAD_TARGET_LIGHT);
@@ -37,11 +38,17 @@ void init_constants()
 
   set_js_variable("FT_SFNT_OS2",                   FT_SFNT_OS2);
 
+  set_js_variable("FT_FACE_FLAG_COLOR",            FT_FACE_FLAG_COLOR);
+
+  set_js_variable("FT_PIXEL_MODE_MONO",            FT_PIXEL_MODE_MONO);
+  set_js_variable("FT_PIXEL_MODE_BGRA",            FT_PIXEL_MODE_BGRA);
+
   set_js_variable("OFFSET_FACE_GLYPH",             offsetof(FT_FaceRec, glyph));
   set_js_variable("OFFSET_FACE_UNITS_PER_EM",      offsetof(FT_FaceRec, units_per_EM));
   set_js_variable("OFFSET_FACE_ASCENDER",          offsetof(FT_FaceRec, ascender));
   set_js_variable("OFFSET_FACE_DESCENDER",         offsetof(FT_FaceRec, descender));
   set_js_variable("OFFSET_FACE_HEIGHT",            offsetof(FT_FaceRec, height));
+  set_js_variable("OFFSET_FACE_FACE_FLAGS",        offsetof(FT_FaceRec, face_flags));
 
   set_js_variable("OFFSET_GLYPH_BITMAP_WIDTH",        offsetof(FT_GlyphSlotRec, bitmap.width));
   set_js_variable("OFFSET_GLYPH_BITMAP_ROWS",         offsetof(FT_GlyphSlotRec, bitmap.rows));
