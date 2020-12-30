@@ -90,12 +90,22 @@
 					Vertical subpixel hinting
 				</label>
 			</div>
+
+			<hr/>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" id="use_color_info" value="" style="vertical-align:top;">
+				<label class="form-check-label" for="use_color_info">
+					Try to use glyph color info from font to create grayscale icons.<br/>
+					<small>Since gray tones are emulated via transparency, result will be good on contrast background only.</small>
+				</label>
+			</div>
 			<hr/>
 
 			<!-- FONTS -->
 			<div class="font-controls" id="font-controls-clone-source">
 				<div class="form-group row">
-					<label class="form-label col-md-2">TTF/WOFF file</label>
+					<label class="form-label col-md-2">TTF/WOFF/OTF file</label>
 					<div class="col-md-10">
 						<input type="file" class="form-control-file font_file" >
 					</div>
@@ -135,7 +145,9 @@
     <ul class="ul-space">
         <li><strong>Unicode table</strong> to pick letters: <a href="https://unicode-table.com/" target="_blank">https://unicode-table.com/</a></li>
         <li><strong>Unicode ranges</strong> <a href="http://jrgraphix.net/research/unicode.php" target="_blank">http://jrgraphix.net/research/unicode.php</a></li>
-        <li><strong>A pixel perefect fonts</strong>: <a href="https://sourceforge.net/projects/terminus-font/">Terminus</a>. </li>
+        <li><strong>A pixel perfect font</strong>: <a href="https://sourceforge.net/projects/terminus-font/">Terminus</a>. </li>
+        <li><strong>Examples for two-tone or colored fonts</strong>: <a href="https://github.com/google/material-design-icons/blob/master/font/MaterialIconsTwoTone-Regular.otf">Material Design Icons (two-tone version)</a>,
+                    <a href="https://github.com/djrrb/Bungee/blob/master/fonts/Bungee_Color_Fonts/BungeeColor-Regular_colr_Windows.ttf">BungeeColor-Regular</a></li>
         <li><strong>List of built-in symbols</strong> Use this <a href="https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff">FontAwesome symbol font</a> and copy this list to <em>Range</em>: <br>
 		   		  61441,61448,61451,61452,61452,61453,61457,61459,61461,61465,<br>
 		        61468,61473,61478,61479,61480,61502,61512,61515,61516,61517,<br>
