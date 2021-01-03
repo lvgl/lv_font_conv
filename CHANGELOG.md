@@ -1,3 +1,10 @@
+1.4.0 / 2021-01-03
+------------------
+
+- Added OTF fonts support.
+- Added `--use-color-info` for limited multi-tone glyphs support.
+
+
 1.3.1 / 2020-12-28
 ------------------
 
