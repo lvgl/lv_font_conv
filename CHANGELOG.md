@@ -1,7 +1,13 @@
+1.5.0 / 2021-03-08
+------------------
+
+- More `const` in generated font (for v8+), #59.
+
+
 1.4.1 / 2021-01-26
 ------------------
 
-- Fix charcodes padding in comments #54.
+- Fix charcodes padding in comments, #54.
 
 
 1.4.0 / 2021-01-03
