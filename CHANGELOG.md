@@ -1,3 +1,10 @@
+1.5.1 / 2021-04-06
+------------------
+
+- Fixed fail of CMAP generation for edge cases, #62.
+- Dev deps bump.
+
+
 1.5.0 / 2021-03-08
 ------------------
 
