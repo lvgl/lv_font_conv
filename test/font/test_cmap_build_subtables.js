@@ -50,4 +50,15 @@ describe('Cmap build subtables', function () {
       [ 'sparse_tiny', [ 1105, 7838 ] ]
     ]);
   });
+
+  it('Should split sparse set with >65535 gap', function () {
+    let set = [
+      1, 11, 21, 31, 41, 51, 61, 65531, 65541, 65551, 65561, 65571, 65581
+    ];
+
+    assert.deepEqual(cmap_split(set), [
+      [ 'sparse_tiny', [ 1, 11, 21, 31, 41 ] ],
+      [ 'sparse_tiny', [ 51, 61, 65531, 65541, 65551, 65561, 65571, 65581 ] ]
+    ]);
+  });
 });

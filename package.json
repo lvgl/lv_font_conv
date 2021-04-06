@@ -22,7 +22,7 @@
     "build:dockerimage": "docker build -t lv_font_conv_freetype ./support",
     "build:freetype": "docker run --rm -v $(pwd):/src/lv_font_conv -it lv_font_conv_freetype ./lv_font_conv/support/build.sh",
     "lint": "eslint .",
-    "test": "npm run lint && nyc mocha",
+    "test": "npm run lint && nyc mocha --recursive",
     "coverage": "npm run test && nyc report --reporter html",
     "shrink-deps": "shx rm -rf node_modules/opentype.js/src node_modules/opentype.js/dist/opentype.{m,js.m}* node_modules/pngjs/browser.js",
     "prepublishOnly": "npm run shrink-deps"
