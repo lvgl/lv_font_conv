@@ -1,4 +1,4 @@
-1.5.2 / WIP
+1.5.2 / 2021-07-18
 ------------------
 
 - Fixed lvgl version check for v8+, #64.
