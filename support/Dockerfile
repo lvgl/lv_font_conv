@@ -1,6 +1,6 @@
-FROM trzeci/emscripten:sdk-tag-1.38.43-64bit
+FROM emscripten/emsdk:1.40.1
 
-RUN wget https://sourceforge.net/projects/freetype/files/freetype2/2.10.4/freetype-2.10.4.tar.xz && \
+RUN wget --no-check-certificate https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.xz && \
     tar xf freetype-2.10.4.tar.xz
 
 RUN apt-get -qq -y update && \
