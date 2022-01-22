@@ -21,7 +21,7 @@ emcc --bind \
     '_FT_Get_Sfnt_Table',\
     '_init_constants'\
   ]"\
-  -s "EXTRA_EXPORTED_RUNTIME_METHODS=[\
+  -s "EXPORTED_RUNTIME_METHODS=[\
     'ccall',\
     'cwrap',\
     'getValue',\

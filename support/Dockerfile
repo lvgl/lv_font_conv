@@ -1,12 +1,12 @@
-FROM emscripten/emsdk:1.40.1
+FROM emscripten/emsdk:3.1.1
 
-RUN wget --no-check-certificate https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.xz && \
-    tar xf freetype-2.10.4.tar.xz
+RUN wget --no-check-certificate https://download.savannah.gnu.org/releases/freetype/freetype-2.11.1.tar.xz && \
+    tar xf freetype-2.11.1.tar.xz
 
 RUN apt-get -qq -y update && \
     apt-get -qq install -y --no-install-recommends file
 
-RUN cd freetype-2.10.4 && \
+RUN cd freetype-2.11.1 && \
     gcc -o objs/apinames src/tools/apinames.c && \
     mv ./modules.cfg ./modules.cfg.orig && \
     grep -v -E "+= type1|+= cid|+= pfr|+= type42|+= winfonts|+= pcf|+= bdf|+= cache|+= gxvalid|+= lzw|+= bzip2|+= otvalid" modules.cfg.orig > modules.cfg && \
