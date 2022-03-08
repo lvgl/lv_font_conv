@@ -18,6 +18,10 @@ Converts TTF/WOFF/OTF fonts to __[compact format](https://github.com/lvgl/lv_fon
 
 [node.js](https://nodejs.org/en/download/) v14+ required.
 
+1. Make sure Node.js is installed.
+1. Clone this repository.
+1. Run `npm install` to install needed dependencies.
+
 Global install of the last version, execute as "lv_font_conv"
 
 ```sh
