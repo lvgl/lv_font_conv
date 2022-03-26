@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "parcel ./web/index.html --open",
-    "build": "parcel build ./web/index.html ./web/content.html --public-url ./",
+    "build": "support/build_web.js && browserify web/index.js -o dist/index.js",
     "build:dockerimage": "docker build -t lv_font_conv_freetype ./support",
     "build:freetype": "docker run --rm -v $(pwd):/src/lv_font_conv -it lv_font_conv_freetype ./lv_font_conv/support/build.sh",
     "lint": "eslint .",
@@ -46,14 +46,13 @@
     "pngjs"
   ],
   "devDependencies": {
+    "browserify": "^17.0.0",
     "eslint": "^8.7.0",
     "file-saver": "^2.0.2",
     "mocha": "^9.1.4",
     "nyc": "^15.1.0",
-    "parcel-bundler": "^1.12.4",
-    "posthtml-include": "^1.7.2",
     "roboto-fontface": "^0.10.0",
-    "shx": "^0.3.4"
+    "shelljs": "^0.8.5"
   },
   "browserslist": [
     "last 1 Chrome version"
