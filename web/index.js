@@ -60,6 +60,7 @@ document.querySelector('#converterForm').addEventListener('submit', function han
   e.preventDefault();
 
   var _name = document.getElementById('name').value;
+  var _fallback = document.getElementById('fallback').value;
   var _size = document.getElementById('height').value;
   var _bpp = document.getElementById('bpp').value;
   /* eslint-disable max-depth, radix */
@@ -110,7 +111,8 @@ document.querySelector('#converterForm').addEventListener('submit', function han
     lcd_v: document.getElementById('subpixel3').checked,
     use_color_info: document.getElementById('use_color_info').checked,
     format: 'lvgl',
-    output: _name
+    output: _name,
+    lv_fallback: _fallback
   };
 
   convert(args).then(result => {
