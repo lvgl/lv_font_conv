@@ -20,7 +20,7 @@
 		<h3>How to use the generated fonts in LVGL?</h3>
 		<ol>
 		    <li>Copy the result C file into your LVGL project</li>
-		    <li>In a C file of your application declare the font as: <code class="code-inline">extern lv_font_t my_font_name;</code>
+		    <li>In a C file of your application declare the font as: <code class="code-inline">extern const lv_font_t my_font_name;</code>
 		        or simply <code class="code-inline">LV_FONT_DECLARE(my_font_name);</code></li>
 		    <li>Set the font in a style: <code class="code-inline">style.text.font = &amp;my_font_name;</code> </li>
 		</ol>
