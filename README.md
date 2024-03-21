@@ -36,7 +36,7 @@ npx lv_font_conv -h
 npx github:lvgl/lv_font_conv -h
 ```
 
-Note, runing via `npx` may take some time until modules installed, be patient.
+Note, running via `npx` may take some time until modules installed, be patient.
 
 
 ## CLI params
