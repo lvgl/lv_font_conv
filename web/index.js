@@ -56,6 +56,62 @@ $('#insert-button').click(addFont);
 
 addFontFileChangeHandlers();
 
+function generate_range(start, end, transpose) {
+  if (start !== transpose) {
+    return start + '-' + end + '=>' + transpose;
+  }
+  if (start !== end) {
+    return start + '-' + end;
+  }
+  return start;
+}
+
+function generate_opts_string(args) {
+  var opts = [];
+
+  opts.push('--bpp', args.bpp);
+  opts.push('--size', args.size);
+  if (args.no_compress) {
+    opts.push('--no-compress');
+  }
+  if (args.lcd) {
+    opts.push('--lcd');
+  }
+  if (args.lcd_v) {
+    opts.push('--lcd-v');
+  }
+  if (args.use_color_info) {
+    opts.push('--use-color-info');
+  }
+
+  for (var i = 0; i < args.font.length; i++) {
+    opts.push('--font', args.font[i].source_path);
+    const r = args.font[i].ranges;
+
+    var symbols = '';
+    var ranges = [];
+    for (var j = 0; j < r.length; j++) {
+      if (r[i].symbols) {
+        symbols += r[i].symbols;
+      }
+      for (var k = 0; k < r[i].range.length; k += 3) {
+        ranges.push(generate_range(r[i].range[k + 0], r[i].range[k + 1], r[i].range[k + 2]));
+      }
+    }
+    if (symbols) {
+      opts.push('--symbols', symbols);
+    }
+    if (ranges) {
+      opts.push('--range', ranges.join(','));
+    }
+  }
+
+  opts.push('--format', args.format);
+  opts.push('-o', args.output + '.c');
+
+  return opts.join(' ');
+}
+
 document.querySelector('#converterForm').addEventListener('submit', function handleSubmit(e) {
   e.preventDefault();
 
@@ -115,7 +171,7 @@ document.querySelector('#converterForm').addEventListener('submit', function han
     lv_fallback: _fallback
   };
 
-  args.opts_string = '';
+  args.opts_string = generate_opts_string(args);
 
   convert(args).then(result => {
     const blob = new Blob([ result[_name] ], { type: 'text/plain;charset=utf-8' });
