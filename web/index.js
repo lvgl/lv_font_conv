@@ -115,6 +115,8 @@ document.querySelector('#converterForm').addEventListener('submit', function han
     lv_fallback: _fallback
   };
 
+  args.opts_string = '';
+
   convert(args).then(result => {
     const blob = new Blob([ result[_name] ], { type: 'text/plain;charset=utf-8' });
 
