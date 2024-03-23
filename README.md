@@ -49,7 +49,7 @@ Common:
 - `--format` - output format.
   - `--format dump` - dump glyph images and font info, useful for debug.
   - `--format bin` - dump font in binary form (as described in [spec](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md)).
-  - `--format lvgl` - dump font in [LittlevGL](https://github.com/lvgl/lvgl) format.
+  - `--format lvgl` - dump font in [LVGL](https://github.com/lvgl/lvgl) format.
 - `--force-fast-kern-format` - always use more fast kering storage format,
   at cost of some size. If size difference appears, it will be displayed.
 - `--lcd` - generate bitmaps with 3x horizontal resolution, for subpixel
@@ -111,7 +111,7 @@ adds compression support.
 ### Supported output formats
 
 1. **bin** - universal binary format, as described in https://github.com/lvgl/lv_font_conv/tree/master/doc.
-2. **lvgl** - format for LittlevGL, C file. Has minor limitations and a bit
+2. **lvgl** - format for LVGL, C file. Has minor limitations and a bit
    bigger size, because C does not allow to effectively define relative offsets
    in data blocks.
 3. **dump** - create folder with each glyph in separate image, and other font
