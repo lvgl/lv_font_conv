@@ -1,6 +1,6 @@
 <div class="row" style="margin-bottom:48px;">
 	<div class="col-md-8 col-md-offset-2">
-	    <p>With this free online font converter tool you can create C array from any TTF or WOFF font. You can select ranges of Unicode characters and speficy the bpp (bit-per-pixel).</p>
+	    <p>With this free online font converter tool you can create C array from any TTF or WOFF font. You can select ranges of Unicode characters and specify the bpp (bit-per-pixel).</p>
 
 	    <p>The font converter is designed to be compatible with <a href="https://lvgl.io" title="Open-source Embedded GUI Library">LVGL</a> but with minor modification you can make it compatible with other graphics libraries.</p>
 
@@ -13,14 +13,14 @@
 		    <li>Set the <strong>bpp</strong> (bit-per-piel). Higher value results smoother (anti-aliased) font</li>
 		    <li>Choose a <strong>TTF or WOFF font</strong></li>
 		    <li>Set a <strong>range</strong> of Unicode character to include in your font or list the characters in the <strong>Symbols</strong> field</li>
-			<li>Optionally choose and other font too and specify the ranges and/or symbols for it as well. The characters will be merged into the final C file.</li>
+			<li>Optionally choose another font too and specify the ranges and/or symbols for it as well. The characters will be merged into the final C file.</li>
 		    <li>Click the <strong>Convert</strong> button to download the result C file.</li>
 		</ol>
 
 		<h3>How to use the generated fonts in LVGL?</h3>
 		<ol>
 		    <li>Copy the result C file into your LVGL project</li>
-		    <li>In a C file of your application declare the font as: <code class="code-inline">extern lv_font_t my_font_name;</code>
+		    <li>In a C file of your application declare the font as: <code class="code-inline">extern const lv_font_t my_font_name;</code>
 		        or simply <code class="code-inline">LV_FONT_DECLARE(my_font_name);</code></li>
 		    <li>Set the font in a style: <code class="code-inline">style.text.font = &amp;my_font_name;</code> </li>
 		</ol>
@@ -31,7 +31,7 @@
 	<div class="col-md-9 col-md-offset-2">
 		<form id="converterForm" enctype="multipart/form-data" name="font_conv" style="padding:12px; border-radius:4px; border-style:solid; border-width:2px; border-color:#7babda">
 
-			<!-- GENERAL PARAMTERS -->
+			<!-- GENERAL PARAMETERS -->
 
 			<div class="form-group row">
 				<label for="name" class="form-label col-md-2">Name</label>

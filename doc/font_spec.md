@@ -302,7 +302,7 @@ spec.
 Glyph data uses modified RLE compression - [I3BN](https://thesai.org/Downloads/Volume7No7/Paper_34-New_modified_RLE_algorithms.pdf), with prefilter and tuned options.
 
 Everything works with "pixels" (groups of 2, 3, 4 or 8 bits). That will not work
-for bitonal fonts, but those are small enougth.
+for bitonal fonts, but those are small enough.
 
 Notable compression gain starts with ~30px sizes. That's explained by 2 moments:
 
@@ -326,7 +326,7 @@ enough and more effective than diff:
    That helps to pass anti-aliasing pixels without size increase.
 2. First 10 repeats are replaced with `1` bit (`0` - end).
 3. Next (11-th) is followed by 6-bit counter. If counter overflows, max possible
-  value used, and process starts from begining (1).
+  value used, and process starts from beginning (1).
 
 See [I3BN](https://thesai.org/Downloads/Volume7No7/Paper_34-New_modified_RLE_algorithms.pdf)
 for initial idea and images.
