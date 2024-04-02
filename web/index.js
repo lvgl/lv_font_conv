@@ -91,11 +91,11 @@ function generate_opts_string(args) {
     var symbols = '';
     var ranges = [];
     for (var j = 0; j < r.length; j++) {
-      if (r[i].symbols) {
-        symbols += r[i].symbols;
+      if (r[j].symbols) {
+        symbols += r[j].symbols;
       }
-      for (var k = 0; k < r[i].range.length; k += 3) {
-        ranges.push(generate_range(r[i].range[k + 0], r[i].range[k + 1], r[i].range[k + 2]));
+      for (var k = 0; k < r[j].range.length; k += 3) {
+        ranges.push(generate_range(r[j].range[k + 0], r[j].range[k + 1], r[j].range[k + 2]));
       }
     }
     if (symbols) {
