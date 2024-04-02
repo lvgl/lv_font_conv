@@ -101,7 +101,7 @@ function generate_opts_string(args) {
     if (symbols) {
       opts.push('--symbols', symbols);
     }
-    if (ranges) {
+    if (ranges.length !== 0) {
       opts.push('--range', ranges.join(','));
     }
   }
