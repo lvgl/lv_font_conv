@@ -60,6 +60,11 @@ Common:
   grayscale icons. Since gray tones are emulated via transparency, result
   will be good on contrast background only.
 - `--lv-include` - only with `--format lvgl`, set alternate path for `lvgl.h`.
+- `--no-compress` - disable built-in RLE compression.
+- `--no-prefilter` - disable bitmap lines filter (XOR), used to improve
+  compression ratio.
+- `--byte-align` - pad the line ends of the bitmaps to a whole byte (requires `--no-compress` and `--bpp != 3`)
+- `--no-kerning` - drop kerning info to reduce size (not recommended).
 
 Per font:
 
@@ -79,11 +84,6 @@ Per font:
 - `--autohint-strong` - use more strong autohinting (will break kerning).
 
 Additional debug options:
-
-- `--no-compress` - disable built-in RLE compression.
-- `--no-prefilter` - disable bitmap lines filter (XOR), used to improve
-  compression ratio.
-- `--no-kerning` - drop kerning info to reduce size (not recommended).
 - `--full-info` - don't shorten 'font_info.json' (include pixels data).
 
 
