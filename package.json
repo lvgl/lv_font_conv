@@ -1,6 +1,7 @@
 {
   "name": "lv_font_conv",
   "version": "1.5.3",
+  "main": "lib/cli.js",
   "description": "Rasterize vector fonts for embedded use. Supports subsettings & merge.",
   "keywords": [
     "font",
