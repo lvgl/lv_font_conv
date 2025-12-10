@@ -1,6 +1,5 @@
 'use strict';
 
-
 const assert = require('assert');
 const Font   = require('../../lib/font/font');
 const { BitStream } = require('bit-buffer');
@@ -15,7 +14,6 @@ const font_data_AV_size200 = require('./fixtures/font_info_AV_size200.json');
 const font_options = { bpp: 2 };
 
 /*eslint-enable max-len*/
-
 
 describe('Font', function () {
 
@@ -52,7 +50,6 @@ describe('Font', function () {
     assert.equal(bin.readUInt8(34), 0); // indexToLocFormat
     assert.equal(bin.readUInt8(35), 0); // glyphIdFormat
 
-
     assert.equal(bin.readUInt8(36), 1); // advanceWidthFormat (with fractional)
 
     assert.equal(bin.readUInt8(37), font_options.bpp);
@@ -65,7 +62,6 @@ describe('Font', function () {
 
     assert.equal(bin.readUInt8(42), 0); // no subpixels
   });
-
 
   it('loca table', function () {
     let font = new Font(font_data_AV, font_options);
@@ -85,7 +81,6 @@ describe('Font', function () {
     assert.equal(bin.readUInt16LE(16), font.glyf.getOffset(2)); // for "W"
     assert.equal(bin.readUInt16LE(16), 25);
   });
-
 
   it('glyf table', function () {
     let font = new Font(font_data_AV, font_options);
@@ -113,7 +108,6 @@ describe('Font', function () {
     assert.equal(bs.readBits(font.wh_bits, false), font_data_AV.glyphs[1].bbox.width);
     assert.equal(bs.readBits(font.wh_bits, false), font_data_AV.glyphs[1].bbox.height);
   });
-
 
   it('cmap table', function () {
     let font = new Font(font_data_AV, font_options);
@@ -143,7 +137,6 @@ describe('Font', function () {
     assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 2), 21); // 'W' => 65+21 => 86
     //assert.equal(bin.readUInt16LE(SUB1_DATA_OFFSET + 6), 1); // 'W' ID => 1+1 => 2
   });
-
 
   describe('kern table', function () {
     it('header', function () {
@@ -182,7 +175,6 @@ describe('Font', function () {
       assert.equal(bin.readInt8(VAL_OFFSET + 1), VA_KERN_FP4);
     });
 
-
     it('kerning values scale', function () {
       function isSimilar(a, b, epsilon) {
         return Math.abs(a - b) < epsilon;
@@ -210,7 +202,6 @@ describe('Font', function () {
         0.1
       ));
     });
-
 
     it('sub format 3', function () {
       let font = new Font(font_data_AV, font_options);

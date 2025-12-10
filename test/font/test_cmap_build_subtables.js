@@ -1,13 +1,11 @@
 'use strict';
 
-
 const assert     = require('assert');
 const cmap_split = require('../../lib/font/cmap_build_subtables');
 
 function range(from, to) {
   return Array(to - from + 1).fill(0).map((_, i) => from + i);
 }
-
 
 describe('Cmap build subtables', function () {
 

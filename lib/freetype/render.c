@@ -9,7 +9,7 @@ static void set_js_variable(char* name, int value) {
   emscripten_run_script(buffer);
 }
 
-// Expose constants, used in calls from js
+// Expose constants, used in calls from Javascript
 void init_constants()
 {
   set_js_variable("FT_LOAD_DEFAULT",               FT_LOAD_DEFAULT);

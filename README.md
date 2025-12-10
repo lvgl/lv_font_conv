@@ -1,100 +1,88 @@
-lv_font_conv - font convertor to compact bitmap format
-======================================================
+# lv_font_conv
 
 [![CI](https://github.com/lvgl/lv_font_conv/workflows/CI/badge.svg?branch=master)](https://github.com/lvgl/lv_font_conv/actions)
 [![NPM version](https://img.shields.io/npm/v/lv_font_conv.svg?style=flat)](https://www.npmjs.org/package/lv_font_conv)
 
-Converts TTF/WOFF/OTF fonts to __[compact format](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md)__, suitable for small embedded systems. Main features are:
+Convert TTF/WOFF/OTF fonts into a [compact bitmap format](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md) that fits small embedded systems. Key capabilities:
 
-- Allows bitonal and anti-aliased glyphs (1-4 bits per pixel).
-- Preserves kerning info.
-- Compression.
-- Users can select required glyphs only (subsetting).
-- Multiple font sources can be merged.
-- Simple CLI interface, easy to integrate into external build systems.
+- Supports bitonal and anti-aliased glyphs (1-4 bits per pixel).
+- Preserves kerning data.
+- Built-in compression.
+- Subset selection for only the glyphs you need.
+- Merge multiple font sources.
+- Simple CLI that plugs easily into build systems.
 
+## Installation
 
-## Install the script
+Requires [Node.js](https://nodejs.org/en/download/) v14+.
 
-[node.js](https://nodejs.org/en/download/) v14+ required.
-
-Global install of the last version, execute as "lv_font_conv"
+Global install of the latest release:
 
 ```sh
-# install release from npm registry
+# Install from npm
 npm i lv_font_conv -g
-# install from github's repo, master branch
+# Install from GitHub (master branch)
 npm i lvgl/lv_font_conv -g
 ```
 
-**run via [npx](https://www.npmjs.com/package/npx) without install**
+Run via [npx](https://www.npmjs.com/package/npx) without installing:
 
 ```sh
-# run from npm registry
+# From npm
 npx lv_font_conv -h
-# run from github master
+# From GitHub master
 npx github:lvgl/lv_font_conv -h
 ```
 
-Note, running via `npx` may take some time until modules installed, be patient.
+`npx` downloads dependencies on first use, so the initial run can take a moment.
 
-
-## CLI params
+## CLI options
 
 Common:
 
 - `--bpp` - bits per pixel (antialiasing).
 - `--size` - output font size (pixels).
-- `-o`, `--output` - output path (file or directory, depends on format).
+- `-o`, `--output` - output path (file or directory, depending on format).
 - `--format` - output format.
-  - `--format dump` - dump glyph images and font info, useful for debug.
-  - `--format bin` - dump font in binary form (as described in [spec](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md)).
-  - `--format lvgl` - dump font in [LVGL](https://github.com/lvgl/lvgl) format.
-- `--force-fast-kern-format` - always use more fast kering storage format,
-  at cost of some size. If size difference appears, it will be displayed.
-- `--lcd` - generate bitmaps with 3x horizontal resolution, for subpixel
-  smoothing.
-- `--lcd-v` - generate bitmaps with 3x vertical resolution, for subpixel
-  smoothing.
-- `--use-color-info` - try to use glyph color info from font to create
-  grayscale icons. Since gray tones are emulated via transparency, result
-  will be good on contrast background only.
-- `--lv-include` - only with `--format lvgl`, set alternate path for `lvgl.h`.
+  - `--format dump` - export glyph images and font info for debugging.
+  - `--format bin` - export a binary font (see the [spec](https://github.com/lvgl/lv_font_conv/blob/master/doc/font_spec.md)).
+  - `--format lvgl` - export in [LVGL](https://github.com/lvgl/lvgl) format.
+- `--force-fast-kern-format` - always use the faster kerning storage format at the cost of some size; if size differs, it is reported.
+- `--lcd` - generate bitmaps with 3x horizontal resolution for subpixel smoothing.
+- `--lcd-v` - generate bitmaps with 3x vertical resolution for subpixel smoothing.
+- `--use-color-info` - try to use glyph color data to create grayscale icons. Gray tones are emulated via transparency, so contrasty backgrounds work best.
+- `--lv-include` - with `--format lvgl`, set an alternate path for `lvgl.h`.
 - `--no-compress` - disable built-in RLE compression.
-- `--no-prefilter` - disable bitmap lines filter (XOR), used to improve
-  compression ratio.
-- `--byte-align` - pad the line ends of the bitmaps to a whole byte (requires `--no-compress` and `--bpp != 3`)
+- `--no-prefilter` - disable the XOR prefilter that improves compression ratio.
+- `--byte-align` - pad bitmap lines to whole bytes (requires `--no-compress` and `--bpp != 3`).
 - `--no-kerning` - drop kerning info to reduce size (not recommended).
 
-Per font:
+Per-font:
 
-- `--font` - path to font file (ttf/woff/woff2/otf). May be used multiple time for
-  merge.
-- `-r`, `--range` - single glyph or range + optional mapping, belongs to
-  previously declared `--font`. Can be used multiple times. Examples:
-  - `-r 0x1F450` - single value, dec or hex format.
+- `--font` - path to a font file (ttf/woff/woff2/otf). May be used multiple times for merging.
+- `-r`, `--range` - single glyph or range with optional mapping for the previously declared `--font`. Can be used multiple times. Examples:
+  - `-r 0x1F450` - single value (dec or hex).
   - `-r 0x1F450-0x1F470` - range.
   - `-r '0x1F450=>0xF005'` - single glyph with mapping.
   - `-r '0x1F450-0x1F470=>0xF005'` - range with mapping.
-  - `-r 0x1F450 -r 0x1F451-0x1F470` - 2 ranges.
-  - `-r 0x1F450,0x1F451-0x1F470` - the same as above, but defined with single `-r`.
+  - `-r 0x1F450 -r 0x1F451-0x1F470` - two ranges.
+  - `-r 0x1F450,0x1F451-0x1F470` - same as above with a single `-r`.
 - `--symbols` - list of characters to copy (instead of numeric format in `-r`).
-  - `--symbols 0123456789.,` - extract chars to display numbers.
+  - `--symbols 0123456789.,` - extract characters for numbers.
 - `--autohint-off` - do not force autohinting ("light" is on by default).
-- `--autohint-strong` - use more strong autohinting (will break kerning).
+- `--autohint-strong` - use stronger autohinting (will break kerning).
 
-Additional debug options:
-- `--full-info` - don't shorten 'font_info.json' (include pixels data).
+Debug:
 
+- `--full-info` - do not shorten `font_info.json` (include pixel data).
 
 ## Examples
 
-Merge english from Roboto Regular and icons from Font Awesome, and show debug
-info:
+Merge English from Roboto Regular and icons from Font Awesome, and show debug info:
 
 `env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --font FontAwesome.ttf -r 0xFE00=>0x81 --size 16 --format bin --bpp 3 --no-compress -o output.font`
 
-Merge english & russian from Roboto Regular, and show debug info:
+Merge English and Russian from Roboto Regular, and show debug info:
 
 `env DEBUG=* lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F -r 0x401,0x410-0x44F,0x451 --size 16 --format bin --bpp 3 --no-compress -o output.font`
 
@@ -102,49 +90,44 @@ Dump all Roboto glyphs to inspect icons and font details:
 
 `lv_font_conv --font Roboto-Regular.ttf -r 0x20-0x7F --size 16 --format dump --bpp 3 -o ./dump`
 
-**Note**. Option `--no-compress` exists temporary, to avoid confusion until LVGL
-adds compression support.
-
+**Note:** `--no-compress` is temporary to avoid confusion until LVGL adds compression support.
 
 ## Technical notes
 
 ### Supported output formats
 
-1. **bin** - universal binary format, as described in https://github.com/lvgl/lv_font_conv/tree/master/doc.
-2. **lvgl** - format for LVGL, C file. Has minor limitations and a bit
-   bigger size, because C does not allow to effectively define relative offsets
-   in data blocks.
-3. **dump** - create folder with each glyph in separate image, and other font
-   data as `json`. Useful for debug.
+1. **bin** - universal binary format as described in https://github.com/lvgl/lv_font_conv/tree/master/doc.
+2. **lvgl** - C file for LVGL. Slightly larger because C cannot easily define relative offsets in data blocks.
+3. **dump** - folder with each glyph in a separate image plus JSON font data (debug-friendly).
 
 ### Merged font metrics
 
-When multiple fonts merged into one, sources can have different metrics. Result
-will follow principles below:
+When multiple fonts are merged, sources can have different metrics. The result follows these rules:
 
-1. No scaling. Glyphs will have exactly the same size, as intended by font authors.
-2. The same baseline.
-3. `OS/2` metrics (`sTypoAscender`, `sTypoDescender`, `sTypoLineGap`) will be
-   used from the first font in list.
-4. `hhea`  metrics (`ascender`, `descender`), defined as max/min point of all
-   font glyphs, are recalculated, according to new glyphs set.
-
+1. No scaling. Glyphs keep the size intended by the font authors.
+2. Baseline is shared.
+3. `OS/2` metrics (`sTypoAscender`, `sTypoDescender`, `sTypoLineGap`) come from the first font in the list.
+4. `hhea` metrics (`ascender`, `descender`), defined as the max/min point of all glyphs, are recalculated for the merged set.
 
 ## Development
 
-Current package includes WebAssembly build of FreeType with some helper
-functions. Everything is wrapped into Docker and requires zero knowledge about
-additional tools install. See `package.json` for additional commands. You may
-need those if decide to upgrade FreeType or update helpers.
+The package includes a WebAssembly build of FreeType with helper functions. Docker wraps everything, so you do not need manual tool installs. See `package.json` for more commands; use these if you upgrade FreeType or helpers.
 
-This builds image with emscripten & freetype, usually should be done only once:
+Build the Docker image with Emscripten and FreeType (usually once):
 
-```
+```sh
 npm run build:dockerimage
 ```
 
-This compiles helpers and creates WebAssembly files:
+Compile helpers and create the WebAssembly files:
 
-```
+```sh
 npm run build:freetype
 ```
+
+Local development notes:
+
+- On Apple Silicon or other ARM hosts, Docker may pull `emscripten/emsdk:3.1.1` for `linux/amd64`. If you see a platform warning, either set `DOCKER_DEFAULT_PLATFORM=linux/amd64` or choose an ARM-compatible base image before running the Docker-based build scripts.
+- To preview the web UI locally, run `npm start`. Parcel serves `web/index.html`, listens on `http://localhost:1234` by default (set `PORT` to override), and opens your browser automatically.
+- Note: `package.json` omits the `main` field to keep Parcel’s development server running fine; CLI entry remains via the `bin` field (`lv_font_conv.js`).
+- Browser bundle note: the web UI uses a browser-safe converter (`web/convert_browser.js`) that excludes Node-only writers. You can also run `npm run build` and open `dist/index.html` to verify the browser bundle works without Node APIs.
