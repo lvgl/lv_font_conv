@@ -1,6 +1,3 @@
-# Cross-editor coding style settings.
-# See http://editorconfig.org/ for details.
-
 root = true
 
 [*]

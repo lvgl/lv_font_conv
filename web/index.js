@@ -1,4 +1,4 @@
-const convert = require('../lib/convert');
+const convert = require('./convert_browser');
 const FileSaver = require('file-saver');
 
 /*eslint-env jquery*/

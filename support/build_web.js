@@ -2,8 +2,8 @@
 
 'use strict';
 
-const shell = require('shelljs');
 const fs = require('fs');
+const shell = require('shelljs');
 
 const OUT_DIR = 'dist';
 
