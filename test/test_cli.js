@@ -5,6 +5,7 @@ const { execFileSync }  = require('child_process');
 const fs                = require('fs');
 const path              = require('path');
 const rimraf            = require('rimraf');
+const fc                = require('fast-check');
 const run               = require('../lib/cli').run;
 const range             = require('../lib/cli')._range;
 
@@ -133,6 +134,117 @@ describe('Cli', function () {
       assert.throws(
         () => range('1114444'),
         /out of unicode/
+      );
+    });
+  });
+
+  describe('pixel-order', function () {
+    /**
+     * Property 10: LSB and compression are mutually exclusive.
+     * Any configuration specifying both LSB pixel ordering and compression
+     * should produce an error.
+     */
+    it('Property 10: LSB with compression should error', async function () {
+      // Test that LSB + compression (default, no --no-compress) always fails
+      await assert.rejects(
+        run([
+          '--font', font, '--range', '0x41', '--size', '18',
+          '--bpp', '2', '--format', 'bin', '--pixel-order', 'LSB',
+          '-o', 'test_output.bin'
+        ], true),
+        /LSB requires --no-compress/
+      );
+    });
+
+    it('Property 10: LSB with compression - property test', async function () {
+      await fc.assert(
+        fc.asyncProperty(
+          fc.constantFrom(1, 2, 4, 8),  // valid BPP values
+          fc.constantFrom('bin', 'lvgl', 'dump'),  // valid formats
+          async (bpp, format) => {
+            // LSB without --no-compress should always fail
+            try {
+              await run([
+                '--font', font, '--range', '0x41', '--size', '18',
+                '--bpp', String(bpp), '--format', format, '--pixel-order', 'LSB',
+                '-o', 'test_output_prop'
+              ], true);
+              // If we get here without error, the test should fail
+              assert.fail('Expected error for LSB without --no-compress');
+            } catch (err) {
+              // Should contain error about LSB incompatibility
+              assert.ok(
+                /LSB requires --no-compress/.test(err.message),
+                `Expected LSB incompatibility error, got: ${err.message}`
+              );
+            }
+          }
+        ),
+        { numRuns: 12 }  // 4 BPP * 3 formats = 12 combinations
+      );
+    });
+
+    it('Should accept LSB with --no-compress', async function () {
+      let rnd = Math.random().toString(16).slice(2, 10) + '.font';
+      let file = path.join(__dirname, rnd);
+
+      try {
+        await run([
+          '--font', font, '--range', '0x41', '--size', '18',
+          '-o', file, '--bpp', '2', '--format', 'bin',
+          '--pixel-order', 'LSB', '--no-compress'
+        ], true);
+
+        // Should succeed and create file
+        assert.ok(fs.existsSync(file));
+      } finally {
+        if (fs.existsSync(file)) fs.unlinkSync(file);
+      }
+    });
+
+    it('Should accept MSB with compression (default)', async function () {
+      let rnd = Math.random().toString(16).slice(2, 10) + '.font';
+      let file = path.join(__dirname, rnd);
+
+      try {
+        await run([
+          '--font', font, '--range', '0x41', '--size', '18',
+          '-o', file, '--bpp', '2', '--format', 'bin',
+          '--pixel-order', 'MSB'
+        ], true);
+
+        // Should succeed and create file
+        assert.ok(fs.existsSync(file));
+      } finally {
+        if (fs.existsSync(file)) fs.unlinkSync(file);
+      }
+    });
+
+    it('Should default to MSB when --pixel-order not specified', async function () {
+      let rnd = Math.random().toString(16).slice(2, 10) + '.font';
+      let file = path.join(__dirname, rnd);
+
+      try {
+        await run([
+          '--font', font, '--range', '0x41', '--size', '18',
+          '-o', file, '--bpp', '2', '--format', 'bin'
+        ], true);
+
+        // Should succeed (MSB is default, compatible with compression)
+        assert.ok(fs.existsSync(file));
+      } finally {
+        if (fs.existsSync(file)) fs.unlinkSync(file);
+      }
+    });
+
+    it('Should reject invalid pixel-order value', async function () {
+      await assert.rejects(
+        run([
+          '--font', font, '--range', '0x41', '--size', '18',
+          '--bpp', '2', '--format', 'bin', '--pixel-order', 'INVALID',
+          '-o', 'test_output.bin'
+        ], true),
+        /invalid choice.*INVALID/i
       );
     });
   });
