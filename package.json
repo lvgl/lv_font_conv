@@ -8,6 +8,7 @@
     "node": "24.11.1",
     "npm": "11.6.2"
   },
+  "main": "lib/cli.js",
   "files": [
     "lv_font_conv.js",
     "lib/"
