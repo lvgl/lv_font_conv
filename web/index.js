@@ -1,4 +1,4 @@
-const convert = require('./convert_browser');
+const { convertBrowser } = require('./convert_browser');
 const FileSaver = require('file-saver');
 
 /*eslint-env jquery*/
@@ -173,7 +173,8 @@ document.querySelector('#converterForm').addEventListener('submit', function han
 
   args.opts_string = generate_opts_string(args);
 
-  convert(args).then(result => {
+  // TODO: convertBrowser needs an fs polyfill as the second argument
+  convertBrowser(args).then(result => {
     const blob = new Blob([ result[_name] ], { type: 'text/plain;charset=utf-8' });
 
     FileSaver.saveAs(blob, _name + '.c');

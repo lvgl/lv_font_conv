@@ -9,8 +9,8 @@ const writers = {
   lvgl: lvglWriter
 };
 
-async function convertBrowser(args) {
-  const font_data = await collect_font_data(args);
+async function convertBrowser(args, fs) {
+  const font_data = await collect_font_data(args, fs);
   const files = writers[args.format](args, font_data);
 
   return files;

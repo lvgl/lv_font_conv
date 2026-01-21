@@ -49,6 +49,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "assert": "^2.1.0",
     "browserify": "^17.0.0",
     "buffer": "^6.0.3",
@@ -60,6 +61,7 @@
     "posthtml-include": "^2.0.1",
     "roboto-fontface": "^0.10.0",
     "rollup": "^4.55.1",
+    "rollup-plugin-polyfill-node": "^0.13.0",
     "shelljs": "^0.8.5",
     "shx": "^0.4.0"
   },
