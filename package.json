@@ -8,7 +8,8 @@
     "node": "24.11.1",
     "npm": "11.6.2"
   },
-  "main": "lib/cli.js",
+  "main": "esm_output/convert_browser.js",
+  "browser": "esm_output/convert_browser.js",
   "files": [
     "lv_font_conv.js",
     "lib/"
@@ -33,7 +34,8 @@
     "test": "npm run lint && nyc mocha --recursive",
     "coverage": "npm run test && nyc report --reporter html",
     "shrink-deps": "shx rm -rf node_modules/opentype.js/src node_modules/opentype.js/dist/opentype.{m,js.m}* node_modules/pngjs/browser.js",
-    "prepublishOnly": "npm run shrink-deps"
+    "prepublishOnly": "npm run shrink-deps",
+    "prepare": "npx rollup -c"
   },
   "dependencies": {
     "argparse": "^2.0.0",
@@ -45,6 +47,8 @@
     "pngjs": "^6.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-json": "^6.1.0",
     "assert": "^2.1.0",
     "browserify": "^17.0.0",
     "buffer": "^6.0.3",
@@ -55,6 +59,7 @@
     "parcel": "^2.16.3",
     "posthtml-include": "^2.0.1",
     "roboto-fontface": "^0.10.0",
+    "rollup": "^4.55.1",
     "shelljs": "^0.8.5",
     "shx": "^0.4.0"
   },
