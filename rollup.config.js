@@ -23,7 +23,7 @@ module.exports = () => ({
     }),
     // Must come after commonjs and nodeResolve
     nodePolyfills({
-      include: [ /bit-buffer/, /opentype\.js/, /pngjs/, /freetype/, /lv_font_conv\/lib/ ],
+      include: [ 'node_modules/**/*', '**/*.js' ],
       exclude: [ /argparse/ ]
     })
   ]
