@@ -61,14 +61,5 @@
     "roboto-fontface": "^0.10.0",
     "shelljs": "^0.8.5",
     "shx": "^0.4.0"
-  },
-  "bundleDependencies": [
-    "argparse",
-    "bit-buffer",
-    "debug",
-    "make-error",
-    "mkdirp",
-    "opentype.js",
-    "pngjs"
-  ]
+  }
 }
