@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="LVGL font converter for generating bitmap fonts from TTF/WOFF sources.">
+    <meta name="robots" content="index,follow">
+    <title>LVGL Font Converter</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20x2%3D%221%22%20y1%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%232f7ed8%22/%3E%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%235ad4e6%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2210%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M16%2018h6v22h12v6H16V18zm18%200h6l6%2015%206-15h6l-9%2022h-6z%22/%3E%3C/svg%3E">
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  </head>
+
+  <body style="margin:40px 40px;">
+    <div class="row" style="margin-bottom:48px;">
+	<div class="col-md-8 col-md-offset-2 text-center">
+		<h1 style="margin-bottom:16px;">LVGL Font Converter</h1>
+		<p style="font-size:16px; color:#555;">Turn your TTF/WOFF fonts into LVGL-ready bitmap assets with custom ranges, symbols, and BPP settings.</p>
+	</div>
+</div>
+<div class="row" style="margin-bottom:48px;">
+	<div class="col-md-8 col-md-offset-2">
+	    <p>With this free online font converter tool you can create C array from any TTF or WOFF font. You can select ranges of Unicode characters and specify the bpp (bit-per-pixel).</p>
+
+	    <p>The font converter is designed to be compatible with <a href="https://lvgl.io" title="Open-source Embedded GUI Library">LVGL</a> but with minor modification you can make it compatible with other graphics libraries.</p>
+
+		<p>The offline version of the converter (as well as the source code for this website) is available <a href="https://github.com/lvgl/lv_font_conv" title="Offline font converter on GitHub">here</a></p>
+
+		<h3>How to use the font converter?</h3>
+		<ol>
+		    <li>Give <strong>name</strong> to the output font. E.g. "arial_40"</li>
+		    <li>Specify the <strong>height</strong> in px</li>
+		    <li>Set the <strong>bpp</strong> (bit-per-piel). Higher value results smoother (anti-aliased) font</li>
+		    <li>Choose a <strong>TTF or WOFF font</strong></li>
+		    <li>Set a <strong>range</strong> of Unicode character to include in your font or list the characters in the <strong>Symbols</strong> field</li>
+			<li>Optionally choose another font too and specify the ranges and/or symbols for it as well. The characters will be merged into the final C file.</li>
+		    <li>Click the <strong>Convert</strong> button to download the result C file.</li>
+		</ol>
+
+		<h3>How to use the generated fonts in LVGL?</h3>
+		<ol>
+		    <li>Copy the result C file into your LVGL project</li>
+		    <li>In a C file of your application declare the font as: <code class="code-inline">extern const lv_font_t my_font_name;</code>
+		        or simply <code class="code-inline">LV_FONT_DECLARE(my_font_name);</code></li>
+		    <li>Set the font in a style: <code class="code-inline">style.text.font = &amp;my_font_name;</code> </li>
+		</ol>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-9 col-md-offset-2">
+		<form id="converterForm" enctype="multipart/form-data" name="font_conv" style="padding:12px; border-radius:4px; border-style:solid; border-width:2px; border-color:#7babda">
+
+			<!-- GENERAL PARAMETERS -->
+
+			<div class="form-group row">
+				<label for="name" class="form-label col-md-2">Name</label>
+				<div class="col-md-5">
+					<input type="text" name="name" id="name" class="form-control" placeholder="E.g. arial_40">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="name" class="form-label col-md-2">Fallback</label>
+				<div class="col-md-5">
+					<input type="text" name="fallback" id="fallback" class="form-control" placeholder="E.g. lv_font_montserrat_24">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="height" class="col-md-2 col-form-label">Size</label>
+				<div class="col-md-5">
+					<input type="number" name="height" id="height" class="form-control" placeholder="Height in px" value="20">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="bpp" class="col-md-2 col-form-label">Bpp</label>
+				<div class="col-md-5">
+				    <select name="bpp" id="bpp" class="form-control" >
+	                  <option value="1">1 bit-per-pixel</option>
+	                  <option value="2">2 bit-per-pixel</option>
+	                  <option value="3">3 bit-per-pixel (Needs compression enabled)</option>
+	                  <option value="4">4 bit-per-pixel</option>
+	                  <option value="8">8 bit-per-pixel</option>
+	                </select>
+				</div>
+			</div>
+
+			<hr/>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="compression">
+				<label class="form-check-label" for="compression">
+				Enable font compression (reduces size, requires 6.1+)
+				</label>
+			</div>
+
+			<hr/>
+
+
+			<div class="form-check" style="display: none;">
+				<input class="form-check-input" type="radio" name="exampleRadios" id="subpixel1" value="none" checked>
+				<label class="form-check-label" for="subpixel1">
+					No subpixel hinting
+				</label>
+			</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" name="exampleRadios" id="subpixel2" value="horz">
+				<label class="form-check-label" for="subpixel2">
+					Horizontal subpixel hinting (may improve font quality, requires 6.1+)
+				</label>
+			</div>
+			<div class="form-check" style="display: none;">
+				<input class="form-check-input" type="radio" name="exampleRadios" id="subpixel3" value="vert">
+				<label class="form-check-label" for="subpixel3">
+					Vertical subpixel hinting
+				</label>
+			</div>
+
+			<hr/>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" id="use_color_info" value="" style="vertical-align:top;">
+				<label class="form-check-label" for="use_color_info">
+					Try to use glyph color info from font to create grayscale icons.<br/>
+					<small>Since gray tones are emulated via transparency, result will be good on contrast background only.</small>
+				</label>
+			</div>
+			<hr/>
+
+			<!-- FONTS -->
+
+			<div class="font-controls" id="font-controls-clone-source">
+				<div class="form-group row">
+					<label class="form-label col-md-2">TTF/WOFF/OTF file</label>
+					<div class="col-md-10">
+						<input type="file" class="form-control-file font_file" >
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="form-label col-md-2">Range</label>
+					<div class="col-md-10">
+						<textarea rows="2" cols="40" class="form-control font_range" placeholder="Ranges and/or characters to include. E.g. 0x20-0x7F, 0x200, 450"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="form-label col-md-2">Symbols</label>
+					<div class="col-md-10">
+						<textarea rows="2" cols="50" class="form-control font_symbols" placeholder="List of character to include. E.g. ABC0123ÁÉŐ"></textarea>
+					</div>
+				</div>
+				<hr/>
+			</div>
+
+			<button type="button" id="insert-button" class="btn btn-primary btn-md" style="margin-top:10px">Include another font</button>
+			<br/>
+			<small>You can use both "Range" and "Symbols" or only one of them</small>
+			<hr/>
+
+			<div class="form-group">
+				<input type="submit" value="Convert" name="submit" class="btn btn-primary btn-lg">
+			</div>
+
+			<div class="form-group">
+			</div>
+		</form>
+
+    <p><a href="/ttf-font-to-c-array-old">Old version for v5.3</a></p>
+
+    <h3>Useful notes</h3>
+    <ul class="ul-space">
+        <li><strong>Unicode table</strong> to pick letters: <a href="https://symbl.cc/" target="_blank">Symbl.cc</a></li>
+        <li><strong>Unicode ranges</strong> <a href="http://jrgraphix.net/research/unicode.php" target="_blank">Unicode Character Ranges</a></li>
+        <li><strong>A pixel perfect font</strong>: <a href="https://sourceforge.net/projects/terminus-font/">Terminus</a>. </li>
+        <li><strong>Examples for two-tone or colored fonts</strong>: <a href="https://github.com/google/material-design-icons/blob/master/font/MaterialIconsTwoTone-Regular.otf">Material Design Icons (two-tone version)</a>,
+                    <a href="https://github.com/djrrb/Bungee/blob/master/fonts/Bungee_Color_Fonts/BungeeColor-Regular_colr_Windows.ttf">BungeeColor-Regular</a></li>
+        <li><strong>List of built-in symbols</strong> Use this <a href="https://lvgl.io/assets/others/FontAwesome5-Solid+Brands+Regular.woff">FontAwesome symbol font</a> and copy this list to <em>Range</em>: <br>
+		   		  61441,61448,61451,61452,61452,61453,61457,61459,61461,61465,<br>
+		        61468,61473,61478,61479,61480,61502,61512,61515,61516,61517,<br>
+		        61521,61522,61523,61524,61543,61544,61550,61552,61553,61556,<br>
+		        61559,61560,61561,61563,61587,61589,61636,61637,61639,61671,<br>
+		        61674,61683,61724,61732,61787,61931,62016,62017,62018,62019,<br>
+		        62020,62087,62099,62212,62189,62810,63426,63650
+		        </li>
+        <li>To learn more about the <strong>font handling of LVGL</strong> read this <a href="https://docs.lvgl.io/latest/en/html/overview/font.html">Guide</a></li>
+        <li>To use the Fonts <strong>without LVGL</strong> you need <em>lv_font.c/h</em>, <em>lv_font_fmt_txt.c/h</em> from <a href="https://github.com/lvgl/lvgl/blob/master/lv_font" target="_blank">here</a>.</li>
+    </ul>
+  </div>
+
+<script src="./index.js" type="module"></script>
+
+</div>
+
+  </body>
+</html>
