@@ -129,5 +129,5 @@ Local development notes:
 
 - On Apple Silicon or other ARM hosts, Docker may pull `emscripten/emsdk:3.1.1` for `linux/amd64`. If you see a platform warning, either set `DOCKER_DEFAULT_PLATFORM=linux/amd64` or choose an ARM-compatible base image before running the Docker-based build scripts.
 - To preview the web UI locally, run `npm start`. Parcel serves `web/index.html`, listens on `http://localhost:1234` by default (set `PORT` to override), and opens your browser automatically.
-- Note: `package.json` omits the `main` field to keep Parcel’s development server running fine; CLI entry remains via the `bin` field (`lv_font_conv.js`).
-- Browser bundle note: the web UI uses a browser-safe converter (`web/convert_browser.js`) that excludes Node-only writers. You can also run `npm run build` and open `dist/index.html` to verify the browser bundle works without Node APIs.
+- Note: `package.json` points `main`/`browser` to a Browserify bundle (`dist/convert_browser.js`) so browser consumers can import the converter directly; CLI entry remains via the `bin` field (`lv_font_conv.js`).
+- Browser bundle note: the web UI uses a browser-safe converter (`web/convert_browser.js`) that excludes Node-only writers. Run `npm run build` to generate both `dist/index.js` (the demo UI) and `dist/convert_browser.js` (the reusable bundle), then open `dist/index.html` to verify it works without Node APIs.

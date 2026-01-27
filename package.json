@@ -8,11 +8,12 @@
     "node": "24.11.1",
     "npm": "11.6.2"
   },
-  "main": "esm_output/convert_browser.js",
-  "browser": "esm_output/convert_browser.js",
+  "main": "dist/convert_browser.js",
+  "browser": "dist/convert_browser.js",
   "files": [
     "lv_font_conv.js",
-    "lib/"
+    "lib/",
+    "dist/convert_browser.js"
   ],
   "bin": {
     "lv_font_conv": "lv_font_conv.js"
@@ -27,15 +28,17 @@
   ],
   "scripts": {
     "start": "parcel serve web/index.html --host localhost --port ${PORT:-1234} --open",
-    "build": "support/build_web.js && browserify web/index.js -o dist/index.js",
+    "build": "support/build_web.js && browserify web/index.js -o dist/index.js && npm run build:browser",
+    "build:browser": "browserify web/convert_browser.js --standalone lv_font_conv -o dist/convert_browser.js",
     "build:dockerimage": "docker build -t lv_font_conv_freetype ./support",
     "build:freetype": "docker run --rm -v $(pwd):/src/lv_font_conv -it lv_font_conv_freetype ./lv_font_conv/support/build.sh",
     "lint": "eslint .",
     "test": "npm run lint && nyc mocha --recursive",
     "coverage": "npm run test && nyc report --reporter html",
+    "test:browser": "npm run build:browser && node -e \"console.log('Open web/smoke.html in a browser and check the on-page status.');\"",
     "shrink-deps": "shx rm -rf node_modules/opentype.js/src node_modules/opentype.js/dist/opentype.{m,js.m}* node_modules/pngjs/browser.js",
     "prepublishOnly": "npm run shrink-deps",
-    "prepare": "npx rollup -c"
+    "prepare": "npm run build:browser"
   },
   "dependencies": {
     "argparse": "^2.0.0",
@@ -47,11 +50,8 @@
     "pngjs": "^6.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.0",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
     "assert": "^2.1.0",
-    "browserify": "^17.0.0",
+    "browserify": "^17.0.1",
     "buffer": "^6.0.3",
     "eslint": "^8.7.0",
     "file-saver": "^2.0.2",
@@ -60,8 +60,6 @@
     "parcel": "^2.16.3",
     "posthtml-include": "^2.0.1",
     "roboto-fontface": "^0.10.0",
-    "rollup": "^4.55.1",
-    "rollup-plugin-polyfill-node": "^0.13.0",
     "shelljs": "^0.8.5",
     "shx": "^0.4.0"
   },
