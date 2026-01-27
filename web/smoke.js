@@ -16,19 +16,19 @@
 
   try {
     if (!window.lv_font_conv) {
-      fail('Global lv_font_conv not found. Did the bundle load?');
+      fail('Global "lv_font_conv" not found. Did the bundle load?');
       return;
     }
 
     const api = window.lv_font_conv;
 
     if (typeof api.convertBrowser !== 'function') {
-      fail('convertBrowser is missing or not a function.');
+      fail('The "convertBrowser" is missing or not a function.');
       return;
     }
 
     if (!Array.isArray(api.formats) || api.formats.length === 0) {
-      fail('formats is missing or empty.');
+      fail('The "formats" is missing or empty.');
       return;
     }
 
