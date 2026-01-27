@@ -2,12 +2,9 @@ node_modules
 coverage
 .nyc_output
 dist
-!dist/
-!dist/convert_browser.js
 .cache
 .parcel-cache
 *.log
 *.swp
 .vscode
-esm_output
 **/.DS_Store
