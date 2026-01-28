@@ -1,7 +1,6 @@
 const collect_font_data = require('../lib/collect_font_data');
 const binWriter = require('../lib/writers/bin');
 const lvglWriter = require('../lib/writers/lvgl');
-
 const { parse_args } = require('../lib/parse_args');
 
 const writers = {
@@ -12,7 +11,6 @@ const writers = {
 async function convertBrowser(args) {
   const font_data = await collect_font_data(args);
   const files = writers[args.format](args, font_data);
-
   return files;
 }
 
