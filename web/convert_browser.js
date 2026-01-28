@@ -1,3 +1,9 @@
+if (typeof globalThis !== 'undefined') {
+  globalThis.__LV_FONT_CONV_BROWSER__ = true;
+}
+
+/* global globalThis */
+
 const collect_font_data = require('../lib/collect_font_data');
 const binWriter = require('../lib/writers/bin');
 const lvglWriter = require('../lib/writers/lvgl');
