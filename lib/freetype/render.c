@@ -80,4 +80,6 @@ void init_constants()
   set_js_variable("OFFSET_TT_OS2_ASCENDER",        offsetof(TT_OS2, sTypoAscender));
   set_js_variable("OFFSET_TT_OS2_DESCENDER",       offsetof(TT_OS2, sTypoDescender));
   set_js_variable("OFFSET_TT_OS2_LINEGAP",         offsetof(TT_OS2, sTypoLineGap));
+  set_js_variable("OFFSET_TT_OS2_CAP_HEIGHT",      offsetof(TT_OS2, sCapHeight));
+  set_js_variable("OFFSET_TT_OS2_X_HEIGHT",        offsetof(TT_OS2, sxHeight));
 }
