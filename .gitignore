@@ -4,7 +4,6 @@ coverage
 dist
 .parcel-cache
 .cache
-.parcel-cache
 *.log
 *.swp
 .vscode
