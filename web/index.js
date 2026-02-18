@@ -116,6 +116,8 @@ document.querySelector('#converterForm').addEventListener('submit', function han
   e.preventDefault();
 
   var _name = document.getElementById('name').value;
+  var _stride = document.getElementById('stride').value;
+  var _align = document.getElementById('align').value;
   var _fallback = document.getElementById('fallback').value;
   var _size = document.getElementById('height').value;
   var _bpp = document.getElementById('bpp').value;
@@ -168,6 +170,8 @@ document.querySelector('#converterForm').addEventListener('submit', function han
     use_color_info: document.getElementById('use_color_info').checked,
     format: 'lvgl',
     output: _name,
+    stride: parseInt(_stride, 10),
+    align: parseInt(_align, 10),
     lv_fallback: _fallback
   };
 
