@@ -1,9 +1,7 @@
 'use strict';
 
-
 const assert = require('assert');
 const Ranger = require('../lib/ranger');
-
 
 describe('Ranger', function () {
 

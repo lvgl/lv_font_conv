@@ -1,6 +1,5 @@
 'use strict';
 
-
 const assert            = require('assert');
 const { execFileSync }  = require('child_process');
 const fs                = require('fs');
@@ -9,10 +8,8 @@ const rimraf            = require('rimraf');
 const run               = require('../lib/cli').run;
 const range             = require('../lib/cli')._range;
 
-
 const script_path = path.join(__dirname, '../lv_font_conv.js');
 const font = require.resolve('roboto-fontface/fonts/roboto/Roboto-Black.woff');
-
 
 describe('Cli', function () {
 
@@ -21,14 +18,12 @@ describe('Cli', function () {
     assert.equal(out.toString().substring(0, 5), 'usage');
   });
 
-
   it('Should print error if range is specified without font', async function () {
     await assert.rejects(
       run('--range 123 --font test'.split(' '), true),
       /Only allowed after/
     );
   });
-
 
   it('Should print error if range is invalid', async function () {
     await assert.rejects(
@@ -37,14 +32,12 @@ describe('Cli', function () {
     );
   });
 
-
   it('Should require character set specified for each font', async function () {
     await assert.rejects(
       run('--font test --size 18 --bpp 4 --format dump'.split(' '), true),
       /You need to specify either /
     );
   });
-
 
   it('Should print error if size is invalid', async function () {
     await assert.rejects(
@@ -53,14 +46,12 @@ describe('Cli', function () {
     );
   });
 
-
   it('Should print error if size is zero', async function () {
     await assert.rejects(
       run('--size 0'.split(' '), true),
       /argument --size: invalid positive_int value: '0'/
     );
   });
-
 
   it('Should write a font using "dump" writer', async function () {
     let rnd = Math.random().toString(16).slice(2, 10);
@@ -77,7 +68,6 @@ describe('Cli', function () {
       rimraf.sync(dir);
     }
   });
-
 
   it('Should write a font using "bin" writer', async function () {
     let rnd = Math.random().toString(16).slice(2, 10) + '.font';
@@ -96,7 +86,6 @@ describe('Cli', function () {
       fs.unlinkSync(file);
     }
   });
-
 
   it('Should require output for "dump" writer', async function () {
     await assert.rejects(

@@ -1,14 +1,14 @@
 {
   "name": "lv_font_conv",
   "version": "1.5.3",
-  "description": "Rasterize vector fonts for embedded use. Supports subsettings & merge.",
-  "keywords": [
-    "font",
-    "convertor",
-    "embedded"
-  ],
+  "description": "Rasterize vector fonts for embedded use. Supports subsettings and merge.",
   "repository": "lvgl/lv_font_conv",
   "license": "MIT",
+  "engines": {
+    "node": "24.11.1",
+    "npm": "11.6.2"
+  },
+  "main": "lib/cli.js",
   "files": [
     "lv_font_conv.js",
     "lib/"
@@ -16,8 +16,16 @@
   "bin": {
     "lv_font_conv": "lv_font_conv.js"
   },
+  "browserslist": [
+    "last 1 Chrome version"
+  ],
+  "keywords": [
+    "font",
+    "converter",
+    "embedded"
+  ],
   "scripts": {
-    "start": "parcel ./web/index.html --open",
+    "start": "parcel serve web/index.html --host localhost --port ${PORT:-1234} --open",
     "build": "support/build_web.js && browserify web/index.js -o dist/index.js",
     "build:dockerimage": "docker build -t lv_font_conv_freetype ./support",
     "build:freetype": "docker run --rm -v $(pwd):/src/lv_font_conv -it lv_font_conv_freetype ./lv_font_conv/support/build.sh",
@@ -36,7 +44,21 @@
     "opentype.js": "^1.3.4",
     "pngjs": "^6.0.0"
   },
-  "bundledDependencies": [
+  "devDependencies": {
+    "assert": "^2.1.0",
+    "browserify": "^17.0.0",
+    "buffer": "^6.0.3",
+    "eslint": "^8.7.0",
+    "file-saver": "^2.0.2",
+    "mocha": "^9.1.4",
+    "nyc": "^15.1.0",
+    "parcel": "^2.16.3",
+    "posthtml-include": "^2.0.1",
+    "roboto-fontface": "^0.10.0",
+    "shelljs": "^0.8.5",
+    "shx": "^0.4.0"
+  },
+  "bundleDependencies": [
     "argparse",
     "bit-buffer",
     "debug",
@@ -44,17 +66,5 @@
     "mkdirp",
     "opentype.js",
     "pngjs"
-  ],
-  "devDependencies": {
-    "browserify": "^17.0.0",
-    "eslint": "^8.7.0",
-    "file-saver": "^2.0.2",
-    "mocha": "^9.1.4",
-    "nyc": "^15.1.0",
-    "roboto-fontface": "^0.10.0",
-    "shelljs": "^0.8.5"
-  },
-  "browserslist": [
-    "last 1 Chrome version"
   ]
 }

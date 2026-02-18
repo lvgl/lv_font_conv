@@ -1,10 +1,9 @@
 'use strict';
 
-
 const assert = require('assert');
-const compress = require('../../lib/font/compress');
 const { BitStream } = require('bit-buffer');
 
+const compress = require('../../lib/font/compress');
 
 function c(data, opts) {
   const buf = Buffer.alloc(data.length * 2 + 100);
@@ -68,5 +67,4 @@ describe('Compress', function () {
       Buffer.from([ 0b00001111, 0b11111111, 0b11111001, 0b10000000 ])
     );
   });
-
 });

@@ -1,9 +1,7 @@
 'use strict';
 
-
 const assert    = require('assert');
 const set_depth = require('../lib/utils').set_depth;
-
 
 describe('Utils', function () {
 
