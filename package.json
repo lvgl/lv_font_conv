@@ -49,6 +49,7 @@
     "browserify": "^17.0.0",
     "buffer": "^6.0.3",
     "eslint": "^8.7.0",
+    "fast-check": "^4.4.0",
     "file-saver": "^2.0.2",
     "mocha": "^9.1.4",
     "nyc": "^15.1.0",
