@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>lv_font_conv browser smoke test</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; }
+    .ok { color: #0a7a33; }
+    .fail { color: #b00020; }
+    code { background: #f4f4f4; padding: 0.1rem 0.25rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>lv_font_conv browser smoke test</h1>
+  <p>Build the bundle first: <code>npm run build:browser</code></p>
+  <p>Status: <span id="status">Running…</span></p>
+  <pre id="details"></pre>
+
+  <script src="../dist/convert_browser.js"></script>
+  <script src="smoke.js"></script>
+</body>
+</html>
