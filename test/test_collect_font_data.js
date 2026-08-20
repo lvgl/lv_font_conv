@@ -153,6 +153,26 @@ describe('Collect font data', function () {
     assert.strictEqual(out.glyphs[0].kerning[0x41], undefined);
   });
 
+  it('Should drop kerning pairs with digit targets for tabular numbers', async function () {
+    let out = await collect_font_data({
+      font: [ {
+        source_path,
+        source_bin,
+        ranges: [
+          // Remap the font's known A -> V kerning pair to V -> 0.
+          { range: [ 0x41, 0x41, 0x56 ] },
+          { range: [ 0x56, 0x56, 0x30 ] }
+        ]
+      } ],
+      size: 18,
+      tabular_nums: true
+    });
+
+    assert.equal(out.glyphs.length, 2);
+    let glyph = out.glyphs.find(g => g.code === 0x56);
+    assert.strictEqual(glyph.kerning[0x30], undefined);
+  });
+
   it('Should error on empty ranges', async function () {
     await assert.rejects(
       collect_font_data({
