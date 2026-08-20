@@ -56,6 +56,7 @@ Common:
 - `--no-prefilter` - disable the XOR prefilter that improves compression ratio.
 - `--byte-align` - pad bitmap lines to whole bytes (requires `--no-compress` and `--bpp != 3`).
 - `--no-kerning` - drop kerning info to reduce size (not recommended).
+- `--tabular-nums` - force ASCII digits 0-9 to use equal advance width.
 
 Per-font:
 
