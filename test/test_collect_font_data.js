@@ -134,6 +134,25 @@ describe('Collect font data', function () {
     assert(out.glyphs[2].kerning[3] === undefined);
   });
 
+  it('Should drop kerning pairs with digit sources for tabular numbers', async function () {
+    let out = await collect_font_data({
+      font: [ {
+        source_path,
+        source_bin,
+        ranges: [
+          // Remap the font's known A -> V kerning pair to 0 -> A.
+          { range: [ 0x41, 0x41, 0x30 ] },
+          { range: [ 0x56, 0x56, 0x41 ] }
+        ]
+      } ],
+      size: 18,
+      tabular_nums: true
+    });
+
+    assert.equal(out.glyphs.length, 2);
+    assert.strictEqual(out.glyphs[0].kerning[0x41], undefined);
+  });
+
   it('Should error on empty ranges', async function () {
     await assert.rejects(
       collect_font_data({
