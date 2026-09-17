@@ -70,9 +70,14 @@ Common:
 - `--lcd-v` - generate bitmaps with 3x vertical resolution for subpixel smoothing.
 - `--use-color-info` - try to use glyph color data to create grayscale icons. Gray tones are emulated via transparency, so contrasty backgrounds work best.
 - `--lv-include` - with `--format lvgl`, set an alternate path for `lvgl.h`.
+- `--lv-font-name` - with `--format lvgl`, the variable name of the generated `lv_font_t`. Defaults to the output file's basename.
+- `--lv-fallback` - with `--format lvgl`, the variable name of another `lv_font_t` to use as this font's fallback. Defaults to `NULL`.
+- `--relative-project-path` - path to the project root. When set, paths in the comment header of each generated file are rewritten relative to it, so output is stable across machines (friendlier for version control).
 - `--no-compress` - disable built-in RLE compression.
 - `--no-prefilter` - disable the XOR prefilter that improves compression ratio.
-- `--byte-align` - pad bitmap lines to whole bytes (requires `--no-compress` and `--bpp != 3`).
+- `--stride` - align each glyph's stride (bitmap line) to the given number of bytes. One of `0`, `1`, `4`, `8`, `16`, `32`, `64`; `0` (default) disables alignment. Requires `--no-compress` and `--bpp` 1, 2, 4 or 8. Needs LVGL v9.3+.
+- `--align` - align each glyph's start address to the given number of bytes. One of `1` (default), `4`, `8`, `16`, `32`, `64`, `128`, `256`, `512`, `1024`.
+- `--byte-align` - **deprecated and removed**; the CLI now errors out. Use `--stride 1` instead.
 - `--no-kerning` - drop kerning info to reduce size (not recommended).
 
 Per-font:
@@ -89,6 +94,10 @@ Per-font:
   - `--symbols 0123456789.,` - extract characters for numbers.
 - `--autohint-off` - do not force autohinting ("light" is on by default).
 - `--autohint-strong` - use stronger autohinting (will break kerning).
+
+Other:
+
+- `-v`, `--version` - print the version and exit.
 
 Debug:
 
