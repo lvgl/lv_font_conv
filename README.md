@@ -14,15 +14,33 @@ Convert TTF/WOFF/OTF fonts into a [compact bitmap format](https://github.com/lvg
 
 ## Installation
 
-Requires [Node.js](https://nodejs.org/en/download/) v14+.
+Requires [Node.js](https://nodejs.org/en/download/). CI tests against the version pinned in
+`package.json` (`engines.node`).
 
-Global install of the latest release:
+> **Note**
+> The npm release lags behind `master`. If you need a fix or option that landed recently,
+> install from GitHub or from a local clone instead of from npm.
+
+Global install of the latest **npm release**:
 
 ```sh
-# Install from npm
 npm i lv_font_conv -g
-# Install from GitHub (master branch)
+```
+
+Global install of the current **`master` branch**:
+
+```sh
 npm i lvgl/lv_font_conv -g
+```
+
+Install from a **local clone** (for development, or to run unreleased changes):
+
+```sh
+git clone https://github.com/lvgl/lv_font_conv.git
+cd lv_font_conv
+npm install
+npm link      # symlink the global `lv_font_conv` at this clone; edits take effect immediately
+# or: npm i -g .   to install a snapshot copy instead
 ```
 
 Run via [npx](https://www.npmjs.com/package/npx) without installing:
