@@ -190,5 +190,19 @@ describe('Collect font data', function () {
     // Without the crop, faint bottom rows that round to 0 at 2bpp give -5.
     assert.equal(out.descent, -4);
     assert.equal(out.ascent, 16);
+
+    let lcd = await collect_font_data({
+      font: [ {
+        source_path,
+        source_bin,
+        ranges: [ { range: [ 0x20, 0x7e, 0x20 ] } ]
+      } ],
+      size: 18,
+      bpp: 2,
+      lcd: true
+    });
+
+    assert.equal(lcd.descent, -4);
+    assert.equal(lcd.ascent, 16);
   });
 });
